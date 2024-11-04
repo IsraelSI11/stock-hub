@@ -18,7 +18,7 @@ import java.util.Set;
 @NoArgsConstructor
 public class Inventory extends BaseEntity{
 
-    private String nombre;
+    private String name;
 
     @OneToMany(mappedBy = "inventory", fetch = FetchType.LAZY)
     private Set<UserInventoryRole> userInventoryRoles = new HashSet<>();
