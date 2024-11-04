@@ -18,7 +18,7 @@ public class UserInventoryRole extends BaseEntity{
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    private AppUser user;
 
     @ManyToOne
     @JoinColumn(name = "role_id", nullable = false)

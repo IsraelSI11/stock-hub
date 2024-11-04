@@ -1,5 +1,6 @@
 package com.stocktracker.backend.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -26,5 +27,11 @@ public class Product extends BaseEntity{
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
+
+    @Column(nullable = false)
+    private int stock = 0;
+
+    @Column(nullable = true)
+    private double price;
 
 }
