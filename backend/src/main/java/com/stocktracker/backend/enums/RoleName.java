@@ -1,4 +1,4 @@
-package com.stocktracker.backend.model;
+package com.stocktracker.backend.enums;
 
 public enum RoleName {
     ADMIN,

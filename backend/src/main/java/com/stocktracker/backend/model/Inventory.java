@@ -28,4 +28,8 @@ public class Inventory extends BaseEntity{
 
     @OneToMany(mappedBy = "inventory")
     private Set<Category> categories = new HashSet<>();
+
+    public Inventory(String name){
+        this.name = name;
+    }
 }
