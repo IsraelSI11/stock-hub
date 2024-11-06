@@ -27,6 +27,22 @@ export class AuthService {
     );
   }
 
+  register(userName: string, email:string, password:string): Observable<any> {
+    const credentials = { userName, email, password };
+    
+    // Configuración para enviar cookies con la solicitud
+    const options = {
+      withCredentials: true,
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    
+    return this.http.post(`${this.apiUrl}/register`, credentials, options).pipe(
+      tap(() => console.log('Usuario registrado'))
+    );
+  }
+
   logout(): Observable<any> {
     const options = { withCredentials: true };
     return this.http.post(`${this.apiUrl}/logout`, {}, options).pipe(
