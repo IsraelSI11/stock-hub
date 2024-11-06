@@ -1,26 +1,39 @@
-import { Component } from '@angular/core';
-import { AuthService } from '../services/auth/auth.service';
-import { Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { Component, inject } from '@angular/core';
+import { FormGroup, FormControl, Validators, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
+  standalone: true,
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  standalone: true,
-  imports: [FormsModule]
+  imports:[ReactiveFormsModule]
 })
 export class LoginComponent {
-  username: string = '';
-  password: string = '';
-  error: string = '';
+  private formBuilder = inject(FormBuilder);
 
-  constructor(private authService: AuthService, private router: Router) {}
+  error='';
+  submitted = false;
+  
+  loginForm = this.formBuilder.group({
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]]
+  });
 
-  login() {
-    this.authService.login(this.username, this.password).subscribe({
-      next: () => this.router.navigate(['/home']),
-      error: err => this.error = 'Error de autenticación'
-    });
+  constructor() {   }
+
+  onSubmit() {
+    this.submitted = true;
+    if (this.loginForm.valid) {
+      // Handle the login logic (e.g., call an authentication service)
+      console.log('Login successful', this.loginForm.value);
+    } else {
+      console.log(this.loginForm.get('password')!.hasError('minlength'));
+      console.log(this.loginForm.get('password'));
+      console.log('Form is invalid');
+    }
+  }
+
+  clearError() {
+    this.error = '';
   }
 }
