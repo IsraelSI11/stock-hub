@@ -13,16 +13,25 @@ export class InventoryFormComponent {
   private formBuilder = inject(FormBuilder);
   private inventoryService = inject(InventoryService);
 
+  submitted = false;
+
   inventoryForm = this.formBuilder.group({
     name: ['', Validators.required],
   });
 
   onSubmit(): void {
-    this.inventoryService.addInventory({
-      name: this.inventoryForm.value.name!,
-    }).subscribe({
-      next: () => console.log('Inventario agregado'),
-      error: (err) => console.log('Error al agregar invent', err)
-    });
+    this.submitted = true;
+    if (this.inventoryForm.valid) {
+      this.inventoryService.addInventory({
+        name: this.inventoryForm.value.name!,
+      }).subscribe({
+        next: () => console.log('Inventario agregado'),
+        error: (err) => console.log('Error al agregar invent', err)
+      });
+    }
+  }
+
+  clearSubmitted(): void {
+    this.submitted = false;
   }
 }
