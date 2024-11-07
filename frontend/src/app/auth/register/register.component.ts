@@ -30,7 +30,6 @@ export class RegisterComponent {
 
   onSubmit() {
     this.submitted = true;
-    console.log(this.registerForm.get('passwordGroup')!.hasError('passwordMismatch'));
     if (this.registerForm.valid) {
       // Handle the login logic (e.g., call an authentication service)
       this.authService.register(this.registerForm.value.username!, this.registerForm.value.email!, this.registerForm.value.passwordGroup!.password!).subscribe(

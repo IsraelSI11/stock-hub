@@ -17,9 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 @RequestMapping("/inventory")
@@ -32,30 +30,30 @@ public class InventoryController {
         this.inventoryService = inventoryService;
     }
 
-    @PostMapping("/")
-    public ResponseEntity<String> addInventory(@RequestBody PostInventoryRequest postInventoryRequest) {
+    @PostMapping
+    public ResponseEntity<Map<String,String>> addInventory(@RequestBody PostInventoryRequest postInventoryRequest) {
+        System.out.println(postInventoryRequest);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = ((UserDetails) authentication.getPrincipal()).getUsername();
-
         Optional<UserInventoryRole> userInventoryRoleOptional =
                         inventoryService.createInventoryAndLinkUser(email,postInventoryRequest.name(), RoleName.ADMIN);
         if(userInventoryRoleOptional.isPresent()) {
-            return ResponseEntity.status(HttpStatus.CREATED).body("Inventario creado exitosamente");
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Inventario creado exitosamente");
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
         }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al registrar el usuario");
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Error al registrar el inventario");
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }
 
-    @GetMapping("/")
+    @GetMapping
     public ResponseEntity<List<Inventory>> getInventoriesOfUser(){
         try{
             String email = AuthUtils.getEmailOfAuthenticatedUser(SecurityContextHolder.getContext());
-            if(email != null){
-                //Obtenemos los inventarios del servicio
-                List<Inventory> inventories = inventoryService.getInventoriesOfUserByEmail(email);
-                return ResponseEntity.ok(inventories);
-            }else{
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(List.of());
-            }
+            //Obtenemos los inventarios del servicio
+            List<Inventory> inventories = inventoryService.getInventoriesOfUserByEmail(email);
+            return ResponseEntity.ok(inventories);
         }catch(Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(List.of());
         }

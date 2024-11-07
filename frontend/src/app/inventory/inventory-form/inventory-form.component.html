@@ -1,0 +1,5 @@
+<form [formGroup]="inventoryForm" (ngSubmit)="onSubmit()">
+    <label for="name">Inventory Name</label>
+    <input id="name" formControlName="name" />
+    <button type="submit">Create Inventory</button>
+</form>

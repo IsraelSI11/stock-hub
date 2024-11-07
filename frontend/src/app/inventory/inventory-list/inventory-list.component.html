@@ -1,0 +1,34 @@
+<main>
+    @if(inventoryState.state().inventories.length > 0){
+    <section>
+        <h2>Inventories</h2>
+        @for (inventory of inventoryState.state().inventories; track inventory.id){
+        <div class="inventory-card">
+            <h3>{{ inventory.name }}</h3>
+            <div class="inventory-section">
+                <h4>Products</h4>
+                @if(inventory.products && inventory.products.length > 0){
+                <p>{{inventory.products.length}} productos</p>
+                }@else {
+                <p>No se han encontrado productos</p>
+                }
+            </div>
+
+            <div class="inventory-section">
+                <h4>Categories</h4>
+                @if(inventory.categories && inventory.categories.length > 0){
+                <p>{{inventory.categories.length}} categorías</p>
+                }@else {
+                <p>No se han encontrado categorías</p>
+                }
+            </div>
+        </div>
+        }
+
+    </section>
+    } @else {
+    <section>
+        <p>No inventories found.</p>
+    </section>
+    }
+</main>
