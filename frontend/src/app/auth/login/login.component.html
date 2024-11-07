@@ -1,0 +1,38 @@
+<div class="login-container">
+    <h2>Iniciar Sesión</h2>
+    <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+        <div>
+            <label for="email">Correo electrónico:</label>
+            <input type="text" id="email" formControlName="email" (input)="clearSubmitted()" name="email" required>
+            @if(submitted && loginForm.invalid) {
+                @if(loginForm.get('email')!.hasError('required') && (loginForm.get('email')!.touched ||
+                loginForm.get('email')!.dirty)) {
+                    <p class="error">El correo electrónico es requerido</p>
+                }
+                @if(loginForm.get('email')!.hasError('email') && (loginForm.get('email')!.touched ||
+                loginForm.get('email')!.dirty)) {
+                    <p class="error">Debes introducir un correo electrónico válido</p>
+                }
+            }
+        </div>
+        <div>
+            <label for="password">Contraseña:</label>
+            <input type="password" id="password" formControlName="password" (input)="clearSubmitted()" name="password"
+                required>
+            @if(submitted && loginForm.invalid) {
+                @if(loginForm.get('password')!.hasError('required') && (loginForm.get('password')!.touched ||
+                loginForm.get('password')!.dirty)) {
+                    <p class="error">Debes introducir una contraseña</p>
+                }
+                @if((loginForm.get('password')!.hasError('minlength') || loginForm.get('password')!.hasError('maxlength'))
+                && (loginForm.get('password')!.touched || loginForm.get('password')!.dirty)) {
+                    <p class="error">La contraseña debe tener entre 6 y 20 caracteres</p>
+                }
+            }
+        </div>
+        <button type="submit">Ingresar</button>
+        @if(submitted && error) {
+            <p class="error">{{error}}</p>
+        }
+    </form>
+</div>

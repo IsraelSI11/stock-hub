@@ -1,0 +1,17 @@
+/* You can add global styles to this file, and also import other style files */
+:root {
+    --primary-color: #DDA15E;
+    --secondary-color: #FEFAE0;
+    --background-color: #283618;
+    --contrast-color: #BC6C25;
+    --text-color: #606C38;
+}
+
+body{
+    margin: 0;
+}
+
+.error{
+    color: red;
+    font-weight: 500;
+}
