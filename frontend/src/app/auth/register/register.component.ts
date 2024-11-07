@@ -33,18 +33,18 @@ export class RegisterComponent {
     console.log(this.registerForm.get('passwordGroup')!.hasError('passwordMismatch'));
     if (this.registerForm.valid) {
       // Handle the login logic (e.g., call an authentication service)
-      // this.authService.login(this.registerForm.value.email!, this.registerForm.value.password!).subscribe(
-      //   {
-      //     next: (res: any) => {
-      //       this.clearError();
-      //       console.log('Response:', res);
-      //     },
-      //     error: (error: any) => {
-      //       console.error('Error:', error);
-      //       this.error = error.message ?? '';
-      //     }
-      //   }
-      // )
+      this.authService.register(this.registerForm.value.username!, this.registerForm.value.email!, this.registerForm.value.passwordGroup!.password!).subscribe(
+        {
+          next: (res: any) => {
+            this.clearError();
+            console.log('Response:', res);
+          },
+          error: (error: any) => {
+            console.error('Error:', error);
+            this.error = error.message ?? '';
+          }
+        }
+      )
     }
   }
 
