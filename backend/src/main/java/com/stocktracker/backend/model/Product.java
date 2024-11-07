@@ -20,6 +20,8 @@ public class Product extends BaseEntity{
 
     private String name;
 
+    private String imageUrl;
+
     @ManyToOne
     @JoinColumn(name = "inventory_id", nullable = false)
     private Inventory inventory;

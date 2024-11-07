@@ -10,6 +10,7 @@ import com.stocktracker.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -41,5 +42,9 @@ public class InventoryService {
             return Optional.of(userInventoryRoleRepository.save(userInventoryRole));
         }
         return Optional.empty();
+    }
+
+    public List<Inventory> getInventoriesOfUserByEmail(String email) {
+        return userInventoryRoleRepository.findInventoriesByUserEmail(email);
     }
 }

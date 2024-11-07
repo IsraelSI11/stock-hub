@@ -68,7 +68,7 @@ public class UserController {
 
         // Crea y guarda el nuevo usuario
         userService.addUser(registerRequest.username(), registerRequest.email(), passwordEncoder.encode(registerRequest.password()));
-    
+
         Map<String, String> response = new HashMap<>();
         response.put("message", "Usuario registrado exitosamente.");
 
