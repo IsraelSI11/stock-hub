@@ -7,7 +7,7 @@ import { tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8080/user';  // Cambia la URL según tu backend
+  private apiUrl = 'http://localhost:8080';  // Cambia la URL según tu backend
 
   constructor(private http: HttpClient) {}
 
@@ -22,7 +22,7 @@ export class AuthService {
       })
     };
     
-    return this.http.post(`${this.apiUrl}/login`, credentials, options).pipe(
+    return this.http.post(`${this.apiUrl}/user/login`, credentials, options).pipe(
       tap(() => console.log('Usuario autenticado'))
     );
   }
@@ -38,14 +38,14 @@ export class AuthService {
       })
     };
     
-    return this.http.post(`${this.apiUrl}/register`, credentials, options).pipe(
+    return this.http.post(`${this.apiUrl}/user/register`, credentials, options).pipe(
       tap(() => console.log('Usuario registrado'))
     );
   }
 
   logout(): Observable<any> {
     const options = { withCredentials: true };
-    return this.http.post(`${this.apiUrl}/logout`, {}, options).pipe(
+    return this.http.post(`${this.apiUrl}/user/logout`, {}, options).pipe(
       tap(() => console.log('Usuario desautenticado'))
     );
   }
