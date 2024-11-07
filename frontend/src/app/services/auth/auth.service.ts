@@ -51,7 +51,7 @@ export class AuthService {
   }
 
   isAuthenticated(): Observable<boolean> {
-    // Aquí puedes realizar una solicitud al backend para verificar si la sesión es válida
+    // Llamando a la API para verificar si la sesión está activa
     return this.http.get<boolean>(`${this.apiUrl}/check-session`, { withCredentials: true });
   }
 }
