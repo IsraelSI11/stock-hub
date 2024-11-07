@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.servlet.http.HttpServletRequest;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -54,15 +57,22 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> registerUser(@RequestBody RegisterRequest registerRequest) {
+    public ResponseEntity<Map<String, String>> registerUser(@RequestBody RegisterRequest registerRequest) {
         // Verifica si el usuario ya existe
         if (userService.existsByEmail(registerRequest.email())) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("El email ya está registrado.");
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "El email ya está registrado.");
+
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
         }
 
         // Crea y guarda el nuevo usuario
         userService.addUser(registerRequest.username(), registerRequest.email(), passwordEncoder.encode(registerRequest.password()));
-        return ResponseEntity.status(HttpStatus.CREATED).body("Usuario registrado exitosamente.");
+    
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Usuario registrado exitosamente.");
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     public record LoginRequest(String email, String password) {
