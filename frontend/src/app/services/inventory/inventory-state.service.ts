@@ -34,13 +34,15 @@ export class InventoryStateService {
         // Llamada al servicio para obtener los inventarios
         this.inventoryService.getInventoriesOfUser().subscribe({
             next: (inventories) => {
+                console.log(inventories, "invent");
                 // Actualizar el estado en caso de éxito
                 this.state.set({
                     inventories,
                     state: 'success'
                 });
             },
-            error: () => {
+            error: (err) => {
+                console.log(err, "err");
                 // Actualizar el estado en caso de error
                 this.state.set({
                     inventories: [],

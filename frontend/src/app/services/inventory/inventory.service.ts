@@ -22,7 +22,7 @@ export class InventoryService {
       })
     };
     
-    return this.http.get<Inventory[]>(`${apiUrl}/user/login`, options).pipe(
+    return this.http.get<Inventory[]>(`${apiUrl}/inventory`, options).pipe(
       tap(() => console.log('Usuario autenticado'))
     );
   }
