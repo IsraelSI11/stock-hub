@@ -1,7 +1,12 @@
 package com.stocktracker.backend.service;
 
+import com.stocktracker.backend.dto.ProductDto;
+import com.stocktracker.backend.mapper.ProductMapper;
+import com.stocktracker.backend.model.Category;
 import com.stocktracker.backend.model.Inventory;
 import com.stocktracker.backend.model.Product;
+import com.stocktracker.backend.repository.CategoryRepository;
+import com.stocktracker.backend.repository.InventoryRepository;
 import com.stocktracker.backend.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,21 +20,39 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
+    private final InventoryRepository inventoryRepository;
+
+    private final CategoryRepository categoryRepository;
+
     @Autowired
-    public ProductService(ProductRepository productRepository) {
+    public ProductService(ProductRepository productRepository,
+                                    InventoryRepository inventoryRepository, CategoryRepository categoryRepository) {
         this.productRepository = productRepository;
+        this.inventoryRepository = inventoryRepository;
+        this.categoryRepository = categoryRepository;
     }
 
-    public Optional<Product> addProduct(Product product) {
-        return Optional.of(productRepository.save(product));
+    public Optional<Product> addProduct(String code, String name, String imageUrl
+                                            , String category, int stock, double price, UUID inventoryId) {
+        Optional<Inventory> inventoryOptional = inventoryRepository.findById(inventoryId);
+        System.out.println(inventoryOptional.isPresent());
+        if(inventoryOptional.isPresent()) {
+            Inventory inventory = inventoryOptional.get();
+            Category cat = new Category(category, inventory);
+            categoryRepository.save(cat);
+            Product product = new Product(code, name, imageUrl, inventory, cat, stock, price);
+            return Optional.of(productRepository.save(product));
+        }else{
+            return Optional.empty();
+        }
     }
 
     public Optional<Product> getProduct(UUID id) {
         return productRepository.findById(id);
     }
 
-    public List<Product> getProductsByInventory(UUID inventoryId) {
-        return productRepository.findByInventoryId(inventoryId);
+    public List<ProductDto> getProductsByInventory(UUID inventoryId) {
+        return ProductMapper.ProductListToDtoList(productRepository.findByInventoryId(inventoryId));
     }
 
     public void deleteProduct(UUID id) {

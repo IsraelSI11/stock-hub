@@ -5,6 +5,9 @@
         @for (inventory of inventoryState.state().inventories; track inventory.id){
         <div class="inventory-card">
             <h3>{{ inventory.name }}</h3>
+            <a routerLink="/product" routerLinkActive="active" ariaCurrentWhenActive="page">Product</a>
+            <button (click)="product(inventory.id)">Product()</button>
+            <button (click)="productInv(inventory.id)">Product()</button>
             <div class="inventory-section">
                 <h4>Products</h4>
                 @if(inventory.products && inventory.products.length > 0){

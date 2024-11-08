@@ -19,8 +19,6 @@ public class Category extends BaseEntity {
     @Column(nullable = false)
     private String name;
 
-    private String description;
-
     @ManyToOne
     @JoinColumn(name = "inventory_id", nullable = false)
     private Inventory inventory;

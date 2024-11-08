@@ -1,1 +1,26 @@
-<p>product-list works!</p>
+<main>
+    @if(productState.state().state === 'success'){
+    <section>
+        <h2>Productos</h2>
+        @for (product of productState.state().products; track product.id) {
+        <div class="product-card">
+            <h3>{{ product.name }}</h3>
+            <div class="product-section">
+                <h4>Detalles</h4>
+                <p><strong>Categoría:</strong> {{ product.category.name }}</p>
+                <p><strong>Stock:</strong> {{ product.stock }}</p>
+                <p><strong>Precio:</strong> ${{ product.price }}</p>
+            </div>
+        </div>
+        }
+    </section>
+    } @else if (productState.state().state === 'loading') {
+    <section>
+        <p>Cargando productos...</p>
+    </section>
+    } @else if (productState.state().state === 'error') {
+    <section>
+        <p>No se han encontrado productos o hubo un error al cargar.</p>
+    </section>
+    }
+</main>

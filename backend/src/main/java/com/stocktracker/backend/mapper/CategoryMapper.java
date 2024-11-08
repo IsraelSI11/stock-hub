@@ -9,13 +9,12 @@ public class CategoryMapper {
     public static CategoryDto CategoryToDto(Category category) {
         InventoryDto inventoryDto = InventoryMapper.InventoryToDto(category.getInventory());
 
-        return new CategoryDto(category.getName(), category.getDescription());
+        return new CategoryDto(category.getName());
     }
 
     public static Category DtoToCategory(CategoryDto categoryDto) {
         Category category = new Category();
         category.setName(categoryDto.getName());
-        category.setDescription(categoryDto.getDescription());
 
         return category;
     }
