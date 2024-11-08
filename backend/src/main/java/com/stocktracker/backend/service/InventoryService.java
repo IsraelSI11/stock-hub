@@ -1,5 +1,7 @@
 package com.stocktracker.backend.service;
 
+import com.stocktracker.backend.dto.InventoryDto;
+import com.stocktracker.backend.mapper.InventoryMapper;
 import com.stocktracker.backend.model.AppUser;
 import com.stocktracker.backend.model.Inventory;
 import com.stocktracker.backend.enums.RoleName;
@@ -44,7 +46,7 @@ public class InventoryService {
         return Optional.empty();
     }
 
-    public List<Inventory> getInventoriesOfUserByEmail(String email) {
-        return userInventoryRoleRepository.findInventoriesByUserEmail(email);
+    public List<InventoryDto> getInventoriesOfUserByEmail(String email) {
+        return InventoryMapper.InventoryListToDtoList(userInventoryRoleRepository.findInventoriesByUserEmail(email));
     }
 }

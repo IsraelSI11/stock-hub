@@ -1,6 +1,8 @@
 package com.stocktracker.backend.controller;
 
+import com.stocktracker.backend.dto.InventoryDto;
 import com.stocktracker.backend.enums.RoleName;
+import com.stocktracker.backend.mapper.InventoryMapper;
 import com.stocktracker.backend.model.Inventory;
 import com.stocktracker.backend.model.UserInventoryRole;
 import com.stocktracker.backend.service.InventoryService;
@@ -12,10 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
@@ -32,7 +31,6 @@ public class InventoryController {
 
     @PostMapping
     public ResponseEntity<Map<String,String>> addInventory(@RequestBody PostInventoryRequest postInventoryRequest) {
-        System.out.println(postInventoryRequest);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = ((UserDetails) authentication.getPrincipal()).getUsername();
         Optional<UserInventoryRole> userInventoryRoleOptional =
@@ -48,11 +46,12 @@ public class InventoryController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Inventory>> getInventoriesOfUser(){
+    @ResponseBody
+    public ResponseEntity<List<InventoryDto>> getInventoriesOfUser(){
         try{
             String email = AuthUtils.getEmailOfAuthenticatedUser(SecurityContextHolder.getContext());
             //Obtenemos los inventarios del servicio
-            List<Inventory> inventories = inventoryService.getInventoriesOfUserByEmail(email);
+            List<InventoryDto> inventories =inventoryService.getInventoriesOfUserByEmail(email);
             return ResponseEntity.ok(inventories);
         }catch(Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(List.of());

@@ -23,10 +23,10 @@ public class Inventory extends BaseEntity{
     @OneToMany(mappedBy = "inventory", fetch = FetchType.LAZY)
     private Set<UserInventoryRole> userInventoryRoles = new HashSet<>();
 
-    @OneToMany(mappedBy = "inventory")
+    @OneToMany(mappedBy = "inventory", fetch = FetchType.LAZY)
     private Set<Product> products = new HashSet<>();
 
-    @OneToMany(mappedBy = "inventory")
+    @OneToMany(mappedBy = "inventory", fetch = FetchType.LAZY)
     private Set<Category> categories = new HashSet<>();
 
     public Inventory(String name){
