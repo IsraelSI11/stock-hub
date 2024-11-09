@@ -11,7 +11,6 @@ import java.util.stream.Collectors;
 public class ProductMapper {
 
     public static ProductDto ProductToDto(Product product) {
-        InventoryDto inventoryDto = InventoryMapper.InventoryToDto(product.getInventory());
         CategoryDto categoryDto = CategoryMapper.CategoryToDto(product.getCategory());
 
         return new ProductDto(product.getCode(), product.getName(), product.getImageUrl(),

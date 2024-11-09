@@ -7,8 +7,6 @@ import com.stocktracker.backend.model.Category;
 public class CategoryMapper {
 
     public static CategoryDto CategoryToDto(Category category) {
-        InventoryDto inventoryDto = InventoryMapper.InventoryToDto(category.getInventory());
-
         return new CategoryDto(category.getName());
     }
 
