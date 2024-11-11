@@ -26,6 +26,12 @@ public class AppUser extends BaseEntity{
     @OneToMany(mappedBy = "user")
     private Set<UserInventoryRole> userInventoryRoles = new HashSet<>();
 
+    @OneToMany(mappedBy = "from")
+    private Set<Invitation> invitationsSent = new HashSet<>();
+
+    @OneToMany(mappedBy = "to")
+    private Set<Invitation> invitationsReceived = new HashSet<>();
+
     public AppUser(String username, String email, String password) {
         this.username = username;
         this.email = email;
