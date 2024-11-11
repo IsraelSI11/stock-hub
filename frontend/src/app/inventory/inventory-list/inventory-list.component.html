@@ -6,7 +6,8 @@
         <div class="inventory-card">
             <h3>{{ inventory.name }}</h3>
             <button (click)="product(inventory.id)">Product()</button>
-            <button (click)="productInv(inventory.id)">Product()</button>
+            <button (click)="productInv(inventory.id)">ProductForm()</button>
+            <button (click)="categoryInv(inventory.id)">CategoryForm()</button>
             <div class="inventory-section">
                 <h4>Products</h4>
                 @if(inventory.products && inventory.products.length > 0){

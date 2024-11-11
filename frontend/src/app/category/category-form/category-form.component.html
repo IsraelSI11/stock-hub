@@ -1,1 +1,16 @@
-<p>category-form works!</p>
+<form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+    <label for="name">Nombre de la categoría</label>
+    <input id="name" formControlName="name" />
+    @if(submitted && categoryForm.get('name')!.invalid) {
+    @if(categoryForm.get('name')!.hasError('required')) {
+    <p class="error">El nombre es obligatorio</p>
+    }
+    @else if(categoryForm.get('name')!.hasError('minlength')) {
+    <p class="error">El nombre debe tener al menos 2 caracteres</p>
+    }
+    @else if(categoryForm.get('name')!.hasError('maxlength')) {
+    <p class="error">El nombre no puede tener más de 50 caracteres</p>
+    }
+    }
+    <button type="submit">Crear producto</button>
+</form>
