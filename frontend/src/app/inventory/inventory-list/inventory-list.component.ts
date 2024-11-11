@@ -24,6 +24,6 @@ export class InventoryListComponent {
   }
 
   productInv(inventoryId: string){
-    this.router.navigate(['/product/add/inventory/', inventoryId]);
+    this.router.navigate(['/product/inventory/add', inventoryId]);
   }
 }

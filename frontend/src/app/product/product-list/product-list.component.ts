@@ -9,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.css'
 })
-export class ProductListComponent implements OnInit{
+export default class ProductListComponent implements OnInit{
 
   inventoryId = '';
   private route = inject(ActivatedRoute);
