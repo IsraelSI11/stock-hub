@@ -1,7 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { ProductService } from '../../services/product/product.service';
 import { CategoryService } from '../../services/category/category.service';
 
 @Component({
@@ -11,7 +10,7 @@ import { CategoryService } from '../../services/category/category.service';
   templateUrl: './category-form.component.html',
   styleUrl: './category-form.component.css'
 })
-export class CategoryFormComponent implements OnInit {
+export default class CategoryFormComponent implements OnInit {
 
   
   private route = inject(ActivatedRoute);

@@ -30,4 +30,8 @@ export class InventoryListComponent {
   categoryInv(inventoryId: string){
     this.router.navigate(['/category/add', inventoryId]);
   }
+
+  categoryList(inventoryId: string){
+    this.router.navigate(['/category/', inventoryId]);
+  }
 }

@@ -1,6 +1,6 @@
 import { Routes } from "@angular/router";
-import { CategoryFormComponent } from "./category-form/category-form.component";
 
 export default [
-    { path: 'add/:id', component: CategoryFormComponent},
+    { path: 'add/:id', loadComponent: ()=> import('./category-form/category-form.component')},
+    { path: ':id', loadComponent: () => import('./category-list/category-list.component') },
 ] as Routes;

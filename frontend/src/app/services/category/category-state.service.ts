@@ -9,7 +9,7 @@ interface CategoryState {
 }
 
 @Injectable()
-export class ProductStateService {
+export class CategoryStateService {
 
     private categoryService = inject(CategoryService);
 
