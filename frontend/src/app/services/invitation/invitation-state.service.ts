@@ -12,7 +12,6 @@ export class InvitationStateService {
 
     private invitationService = inject(InvitationService);
 
-    // Estado inicial de inventario
     private initialState: InvitationState = {
         invitations: [],
         state: 'loading' as const
@@ -27,7 +26,6 @@ export class InvitationStateService {
         // Actualizar el estado a "loading" antes de la llamada
         this.state.set({ ...this.state(), state: 'loading' as const });
 
-        // Llamada al servicio para obtener los inventarios
         this.invitationService.getInvitationsOfUser().subscribe({
             next: (invitations) => {
                 console.log(invitations, "Invitations");
@@ -45,6 +43,18 @@ export class InvitationStateService {
                     state: 'error'
                 });
             }
+        });
+    }
+
+    acceptInvitation(invitationId: string): void {
+        this.invitationService.acceptInvitation(invitationId).subscribe(() => {
+            this.loadInvitationsOfUser();
+        });
+    }
+
+    declineInvitation(invitationId: string): void {
+        this.invitationService.declineInvitation(invitationId).subscribe(() => {
+            this.loadInvitationsOfUser();
         });
     }
 }

@@ -7,6 +7,8 @@
             <p>From: {{invitation.fromUser.email}}</p>
             <p>To: {{invitation.toUser.email}}</p>
             <p>Role: {{invitation.role}}</p>
+            <button (click)="acceptInvitation(invitation.id)">Accept</button>
+            <button (click)="declineInvitation(invitation.id)">Decline</button>
         </div>
         }
     </section>

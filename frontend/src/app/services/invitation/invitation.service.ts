@@ -41,6 +41,29 @@ export class InvitationService {
     );
   }
 
-    
+  acceptInvitation(invitationId: string): Observable<any> {
+    const options = {
+      withCredentials: true,
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    return this.http.post(`${apiUrl}/invitation/accept/${invitationId}`, {}, options).pipe(
+      tap(() => console.log('Invitación aceptada'))
+    );
+  }
+
+  declineInvitation(invitationId: string): Observable<any> {
+    const options = {
+      withCredentials: true,
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    return this.http.delete(`${apiUrl}/invitation/decline/${invitationId}`, options).pipe(
+      tap(() => console.log('Invitación rechazada'))
+    );
+  }
+
 
 }

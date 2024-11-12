@@ -16,4 +16,12 @@ export default class InvitationListComponent implements OnInit{
     this.invitationState.loadInvitationsOfUser();
   }
 
+  acceptInvitation(invitationId: string): void {
+    this.invitationState.acceptInvitation(invitationId);
+  }
+
+  declineInvitation(invitationId: string): void {
+    this.invitationState.declineInvitation(invitationId);
+  }
+
 }
