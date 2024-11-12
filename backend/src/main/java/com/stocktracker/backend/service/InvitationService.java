@@ -52,8 +52,8 @@ public class InvitationService {
         return Optional.empty();
     }
 
-    public List<InvitationDto> getInvitationsOfUser(String userEmail){
-        List<Invitation> invitations = invitationRepository.findInvitationsByUserEmail(userEmail);
+    public List<InvitationDto> getInvitationsOfUser(String email){
+        List<Invitation> invitations = invitationRepository.findInvitationsByUserEmail(email);
         return InvitationMapper.invitationsToDtos(invitations);
     }
 }

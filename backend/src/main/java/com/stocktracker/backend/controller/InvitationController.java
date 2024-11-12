@@ -35,6 +35,7 @@ public class InvitationController {
         try{
             String email = AuthUtils.getEmailOfAuthenticatedUser(SecurityContextHolder.getContext());
             //Obtenemos las invitaciones del servicio
+            System.out.println(email);
             List<InvitationDto> invitations = invitationService.getInvitationsOfUser(email);
             return ResponseEntity.ok(invitations);
         }catch(Exception e){
@@ -42,12 +43,14 @@ public class InvitationController {
         }
     }
 
-    @PostMapping
-    public ResponseEntity<Map<String,String>> sendInvitation(@RequestBody PostInvitationRequest postInvitationRequest) {
+    @PostMapping("/{inventoryId}")
+    @ResponseBody
+    public ResponseEntity<Map<String,String>> sendInvitation(@RequestBody PostInvitationRequest postInvitationRequest,
+                                                             @PathVariable(value="inventoryId") UUID inventoryId) {
         try{
             String emailFrom = AuthUtils.getEmailOfAuthenticatedUser(SecurityContextHolder.getContext());
             Optional<Invitation> invitationOptional = invitationService.sendInvitation(emailFrom,postInvitationRequest.to()
-                                                            ,postInvitationRequest.inventoryId(),postInvitationRequest.role());
+                                                            ,inventoryId,postInvitationRequest.role());
             Map<String, String> response = new HashMap<>();
             if(invitationOptional.isPresent()){
                 response.put("message", "Inventario creado exitosamente");
@@ -63,5 +66,5 @@ public class InvitationController {
         }
     }
 
-    public record PostInvitationRequest(String to, UUID inventoryId, RoleName role){ }
+    public record PostInvitationRequest(String to, RoleName role){ }
 }

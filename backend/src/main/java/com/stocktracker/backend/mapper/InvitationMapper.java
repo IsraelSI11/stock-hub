@@ -12,8 +12,8 @@ public class InvitationMapper {
 
     public static InvitationDto invitationToDto(Invitation invitation) {
         // Mapear los objetos internos de `Invitation` a sus respectivos DTOs
-        AppUserDto fromDto = AppUserMapper.AppUserToDto(invitation.getFrom());
-        AppUserDto toDto = AppUserMapper.AppUserToDto(invitation.getTo());
+        AppUserDto fromDto = AppUserMapper.AppUserToDto(invitation.getFromUser());
+        AppUserDto toDto = AppUserMapper.AppUserToDto(invitation.getToUser());
         InventoryDto inventoryDto = InventoryMapper.InventoryToDto(invitation.getInventory());
 
         // Retornar el `InvitationDto` con los datos mapeados
@@ -30,8 +30,8 @@ public class InvitationMapper {
         Invitation invitation = new Invitation();
 
         // Mapear los DTOs internos a sus respectivas entidades
-        invitation.setFrom(AppUserMapper.DtoToAppUser(invitationDto.getFrom()));
-        invitation.setTo(AppUserMapper.DtoToAppUser(invitationDto.getTo()));
+        invitation.setFromUser(AppUserMapper.DtoToAppUser(invitationDto.getFromUser()));
+        invitation.setToUser(AppUserMapper.DtoToAppUser(invitationDto.getToUser()));
         invitation.setInventory(InventoryMapper.DtoToInventory(invitationDto.getInventory()));
 
         // Asignar el rol directamente

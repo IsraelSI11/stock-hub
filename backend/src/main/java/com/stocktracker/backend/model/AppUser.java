@@ -26,10 +26,10 @@ public class AppUser extends BaseEntity{
     @OneToMany(mappedBy = "user")
     private Set<UserInventoryRole> userInventoryRoles = new HashSet<>();
 
-    @OneToMany(mappedBy = "from")
+    @OneToMany(mappedBy = "fromUser")
     private Set<Invitation> invitationsSent = new HashSet<>();
 
-    @OneToMany(mappedBy = "to")
+    @OneToMany(mappedBy = "toUser")
     private Set<Invitation> invitationsReceived = new HashSet<>();
 
     public AppUser(String username, String email, String password) {

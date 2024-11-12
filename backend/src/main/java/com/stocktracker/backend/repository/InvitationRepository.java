@@ -10,6 +10,6 @@ import java.util.List;
 import java.util.UUID;
 
 public interface InvitationRepository extends JpaRepository<Invitation, UUID> {
-    @Query("SELECT i FROM Invitation i WHERE i.from.email = :email")
+    @Query("SELECT i FROM Invitation i WHERE i.toUser.email = :email")
     List<Invitation> findInvitationsByUserEmail(@Param("email") String email);
 }

@@ -15,12 +15,12 @@ import lombok.Setter;
 public class Invitation extends BaseEntity{
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private AppUser from;
+    @JoinColumn(name = "fromUser", nullable = false)
+    private AppUser fromUser;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private AppUser to;
+    @JoinColumn(name = "toUser", nullable = false)
+    private AppUser toUser;
 
     @ManyToOne
     @JoinColumn(name = "inventory_id", nullable = false)

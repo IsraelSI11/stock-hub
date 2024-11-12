@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Getter
 public class InvitationDto {
-    private AppUserDto from;
-    private AppUserDto to;
+    private AppUserDto fromUser;
+    private AppUserDto toUser;
     private RoleName role;
     private InventoryDto inventory;
 }
