@@ -35,11 +35,40 @@ public class InvitationController {
         try{
             String email = AuthUtils.getEmailOfAuthenticatedUser(SecurityContextHolder.getContext());
             //Obtenemos las invitaciones del servicio
-            System.out.println(email);
             List<InvitationDto> invitations = invitationService.getInvitationsOfUser(email);
             return ResponseEntity.ok(invitations);
         }catch(Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(List.of());
+        }
+    }
+
+    @PostMapping("/accept/{invitationId}")
+    @ResponseBody
+    public ResponseEntity<Map<String,String>> acceptInvitation(@PathVariable(value="invitationId") UUID invitationId) {
+        try{
+            invitationService.acceptInvitation(invitationId);
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Invitación aceptada exitosamente");
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        }catch(Exception e){
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Error al aceptar la invitación");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
+
+    @DeleteMapping("/decline/{invitationId}")
+    @ResponseBody
+    public ResponseEntity<Map<String,String>> declineInvitation(@PathVariable(value="invitationId") UUID invitationId) {
+        try{
+            invitationService.declineInvitation(invitationId);
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Invitación rechazada exitosamente");
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        }catch(Exception e){
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Error al rechazar la invitación");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
     }
 

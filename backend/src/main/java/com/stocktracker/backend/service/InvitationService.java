@@ -56,4 +56,23 @@ public class InvitationService {
         List<Invitation> invitations = invitationRepository.findInvitationsByUserEmail(email);
         return InvitationMapper.invitationsToDtos(invitations);
     }
+
+    public void acceptInvitation(UUID invitationId) {
+        Optional<Invitation> invitationOptional = invitationRepository.findById(invitationId);
+        if(invitationOptional.isPresent()) {
+            Invitation invitation = invitationOptional.get();
+            UserInventoryRole userInventoryRole =
+                        new UserInventoryRole(invitation.getRoleName(),invitation.getToUser(),invitation.getInventory());
+            userInventoryRoleRepository.save(userInventoryRole);
+            invitationRepository.delete(invitation);
+        }
+    }
+
+    public void declineInvitation(UUID invitationId) {
+        Optional<Invitation> invitationOptional = invitationRepository.findById(invitationId);
+        if(invitationOptional.isPresent()) {
+            Invitation invitation = invitationOptional.get();
+            invitationRepository.delete(invitation);
+        }
+    }
 }

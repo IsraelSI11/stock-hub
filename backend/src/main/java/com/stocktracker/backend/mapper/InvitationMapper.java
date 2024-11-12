@@ -18,6 +18,7 @@ public class InvitationMapper {
 
         // Retornar el `InvitationDto` con los datos mapeados
         return new InvitationDto(
+                invitation.getId(),
                 fromDto,
                 toDto,
                 invitation.getRoleName(),
