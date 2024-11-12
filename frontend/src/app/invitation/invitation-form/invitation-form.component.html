@@ -1,0 +1,21 @@
+<form [formGroup]="invitationForm" (ngSubmit)="onSubmit()">
+    <label for="to">Enviar a: </label>
+    <input id="to" formControlName="to" />
+    @if(submitted && invitationForm.get('to')!.invalid) {
+        @if(invitationForm.get('to')!.hasError('required')) {
+        <p class="error">El to es obligatorio</p>
+        }
+        @else if(invitationForm.get('to')!.hasError('email')) {
+        <p class="error">El to debe tener formato to</p>
+        }
+    }
+
+    <label for="role">Rol</label>
+    <input id="role" formControlName="role" />
+    @if(submitted && invitationForm.get('role')!.invalid) {
+        @if(invitationForm.get('role')!.hasError('required')) {
+        <p class="error">El rol es obligatorio</p>
+        }
+    }
+    <button type="submit">Enviar invitación</button>
+</form>

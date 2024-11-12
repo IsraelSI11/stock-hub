@@ -1,0 +1,22 @@
+<main>
+    @if(invitationState.state().state === 'success'){
+    <section>
+        <h2>Invitaciones</h2>
+        @for (invitation of invitationState.state().invitations; track invitation.id) {
+        <div class="invitation-card">
+            <p>From: {{invitation.fromUser.email}}</p>
+            <p>To: {{invitation.toUser.email}}</p>
+            <p>Role: {{invitation.role}}</p>
+        </div>
+        }
+    </section>
+    } @else if (invitationState.state().state === 'loading') {
+    <section>
+        <p>Cargando invitaciones...</p>
+    </section>
+    } @else if (invitationState.state().state === 'error') {
+    <section>
+        <p>No se han encontrado invitaciones o hubo un error al cargar.</p>
+    </section>
+    }
+</main>

@@ -12,4 +12,5 @@ export const routes: Routes = [
     { path: 'form', component: InventoryFormComponent, canActivate: [AuthGuard] },
     { path: 'product/inventory', loadChildren: () => import('./product/product.route') , canActivate: [AuthGuard]},
     { path: 'category', loadChildren: () => import('./category/category.route') , canActivate: [AuthGuard]},
+    { path: 'invitation', loadChildren: () => import('./invitation/invitation.route') , canActivate: [AuthGuard]},
 ];
