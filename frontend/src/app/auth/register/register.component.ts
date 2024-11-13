@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth/auth.service';
 import { passwordMathValidator } from '../../shared/validators/passwordmatch.directive';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -11,6 +12,8 @@ import { passwordMathValidator } from '../../shared/validators/passwordmatch.dir
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
+
+  private router = inject(Router);
   private formBuilder = inject(FormBuilder);
   private authService : AuthService = inject(AuthService);
 
@@ -36,7 +39,7 @@ export class RegisterComponent {
         {
           next: (res: any) => {
             this.clearError();
-            console.log('Response:', res);
+            this.redirectToLogin();
           },
           error: (error: any) => {
             console.error('Error:', error);
@@ -53,5 +56,9 @@ export class RegisterComponent {
 
   clearError() {
     this.error = '';
+  }
+
+  redirectToLogin() {
+    this.router.navigate(['/login']);
   }
 }

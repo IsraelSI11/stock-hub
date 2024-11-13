@@ -10,10 +10,12 @@ p{
 }
 
 nav{
-    padding: 1.5em;
+    padding-left: 2em;
+    padding-bottom: 0.5em;
     display: flex;
     align-items: center;
     gap: 3em;
+    border-bottom: 1px solid #eee8e8;
 }
 
 nav ul{
@@ -29,15 +31,22 @@ img{
 }
 
 a {
+    display: flex;
     font-size: 1.2em;
-    padding: 1em 3em;
+    padding: 1em 2em;
     color: #322963;         
     text-decoration: none;   
     font-weight: bold;       
-    transition: color 0.3s ease, background-color 0.3s ease; 
-    background-color: transparent;
+    transition: color 0.3s ease, border-bottom 0.3s ease; 
+    border-bottom: 2px solid transparent;
+}
+
+a div{
+    display: flex;
+    align-items: center;
+    gap: 1em;
 }
 
 a:hover {
-    background-color: var(--contrast-color)
+    border-bottom: 2px solid #322963; /* Línea inferior en hover */
 }

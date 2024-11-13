@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -12,6 +13,7 @@ import { AuthService } from '../../services/auth/auth.service';
 export class LoginComponent {
   private formBuilder = inject(FormBuilder);
   private authService : AuthService = inject(AuthService);
+  private router = inject(Router);
 
   submitted = false;
   error = '';
@@ -31,7 +33,7 @@ export class LoginComponent {
         {
           next: (res: any) => {
             this.clearError();
-            console.log('Response:', res);
+            this.redirectToInventory();
           },
           error: (error: any) => {
             console.error('Error:', error);
@@ -48,5 +50,13 @@ export class LoginComponent {
   
   clearError() {
     this.error = '';
+  }
+
+  redirectToRegister() {
+    this.router.navigate(['/register']);
+  }
+
+  redirectToInventory(){
+    this.router.navigate(['/inventory']);
   }
 }

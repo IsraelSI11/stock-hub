@@ -34,5 +34,7 @@
         @if(submitted && error) {
             <p class="error">{{error}}</p>
         }
+
+        <p>¿No tienes una cuenta? <button (click)="redirectToRegister()">Regístrate</button></p>
     </form>
 </div>
