@@ -2,39 +2,42 @@ import { inject, Injectable, signal, effect } from '@angular/core';
 import { InventoryService } from './inventory.service';
 import { Inventory } from '../../shared/interfaces/inventory.interface';
 
-interface InventoryState {
-    inventory: Inventory | null;
+interface InventoriesState {
+    inventories: Inventory[];
     state: 'loading' | 'error' | 'success';
 }
 
 @Injectable()
-export class InventoryStateService {
+export class InventoriesStateService {
 
     private inventoryService = inject(InventoryService);
 
     // Estado inicial de inventario
-    private initialState: InventoryState = {
-        inventory: null,
+    private initialState: InventoriesState = {
+        inventories: [],
         state: 'loading' as const
     };
 
     // Crear la señal de estado como WritableSignal
-    state = signal<InventoryState>(this.initialState);
+    state = signal<InventoriesState>(this.initialState);
 
-    constructor() {    }
+    constructor() {
+        // Llama a la función de carga al inicializar el servicio
+        this.loadInventories();
+    }
 
     // Método para cargar inventarios desde el servicio y actualizar la señal
-    loadInventory(inventoryId:string): void {
+    loadInventories(): void {
         // Actualizar el estado a "loading" antes de la llamada
         this.state.set({ ...this.state(), state: 'loading' as const });
 
         // Llamada al servicio para obtener los inventarios
-        this.inventoryService.getInventory(inventoryId).subscribe({
-            next: (inventory) => {
-                console.log(inventory, "invent");
+        this.inventoryService.getInventoriesOfUser().subscribe({
+            next: (inventories) => {
+                console.log(inventories, "invent");
                 // Actualizar el estado en caso de éxito
                 this.state.set({
-                    inventory,
+                    inventories,
                     state: 'success'
                 });
             },
@@ -42,7 +45,7 @@ export class InventoryStateService {
                 console.log(err, "err");
                 // Actualizar el estado en caso de error
                 this.state.set({
-                    inventory: null,
+                    inventories: [],
                     state: 'error'
                 });
             }

@@ -41,6 +41,20 @@ export class InventoryService {
     );
   }
 
+  getInventory(inventoryId: string): Observable<Inventory> {
+    // Configuración para enviar cookies con la solicitud
+    const options = {
+      withCredentials: true,
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    
+    return this.http.get<Inventory>(`${apiUrl}/inventory/${inventoryId}`, options).pipe(
+      tap(() => console.log('Inventario obtenido'))
+    );
+  }
+
     
 
 }

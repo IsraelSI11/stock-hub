@@ -1,14 +1,12 @@
 <main>
-    @if(inventoryState.state().inventories.length > 0){
+    <button (click)="redirectToInventoryForm()">Añadir inventario</button>
+    @if(inventoriesState.state().inventories.length > 0){
     <section>
         <h2>Inventories</h2>
-        @for (inventory of inventoryState.state().inventories; track inventory.id){
+        @for (inventory of inventoriesState.state().inventories; track inventory.id){
         <div class="inventory-card">
             <h3>{{ inventory.name }}</h3>
-            <button (click)="product(inventory.id)">Product()</button>
-            <button (click)="productInv(inventory.id)">ProductForm()</button>
-            <button (click)="categoryInv(inventory.id)">CategoryForm()</button>
-            <button (click)="categoryList(inventory.id)">CategoryList()</button>
+            <button (click)="details(inventory.id)">Detales</button>
             <div class="inventory-section">
                 <h4>Products</h4>
                 @if(inventory.products && inventory.products.length > 0){

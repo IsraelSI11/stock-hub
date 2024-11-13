@@ -1,37 +1,29 @@
 import { Component, inject } from '@angular/core';
-import { InventoryStateService } from '../../services/inventory/inventory-state.service';
+import { InventoriesStateService } from '../../services/inventory/inventories-state.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-inventory-list',
   standalone: true,
-  providers: [InventoryStateService],
+  providers: [InventoriesStateService],
   templateUrl: './inventory-list.component.html',
   styleUrl: './inventory-list.component.css'
 })
 export class InventoryListComponent {
 
   private router = inject(Router);
-  inventoryState = inject(InventoryStateService);
+  inventoriesState = inject(InventoriesStateService);
   
   constructor(){
-    console.log(this.inventoryState);
-    console.log(this.inventoryState.state());
+    console.log(this.inventoriesState);
+    console.log(this.inventoriesState.state());
   }
 
-  product(invId: string){
-    this.router.navigate(['/product/inventory/', invId]);
+  details(inventoryId:string){
+    this.router.navigate(['/inventory', inventoryId]);
   }
 
-  productInv(inventoryId: string){
-    this.router.navigate(['/product/inventory/add', inventoryId]);
-  }
-
-  categoryInv(inventoryId: string){
-    this.router.navigate(['/category/add', inventoryId]);
-  }
-
-  categoryList(inventoryId: string){
-    this.router.navigate(['/category/', inventoryId]);
+  redirectToInventoryForm(){
+    this.router.navigate(['/form']);
   }
 }

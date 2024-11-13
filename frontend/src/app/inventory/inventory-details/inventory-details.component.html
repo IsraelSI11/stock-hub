@@ -1,0 +1,31 @@
+@if(inventoryState.state().state == 'loading'){
+<div class="loading">
+    <p>Cargando inventario</p>
+</div>
+}@else {
+<h2>{{inventoryState.state().inventory!.name}}</h2>
+<div class="inventory-card">
+    <div class="inventory-section">
+        <h4>Products</h4>
+        @if(inventoryState.state().inventory!.products && inventoryState.state().inventory!.products.length > 0){
+        <p>{{inventoryState.state().inventory!.products.length}} productos</p>
+        }@else {
+        <p>0 productos</p>
+        }
+    </div>
+
+    <div class="inventory-section">
+        <h4>Categories</h4>
+        @if(inventoryState.state().inventory!.categories && inventoryState.state().inventory!.categories.length > 0){
+        <p>{{inventoryState.state().inventory!.categories.length}} categorías</p>
+        }@else {
+        <p>0 categorías</p>
+        }
+    </div>
+
+    <button (click)="product(inventoryState.state().inventory!.id)">Product()</button>
+    <button (click)="productInv(inventoryState.state().inventory!.id)">ProductForm()</button>
+    <button (click)="categoryInv(inventoryState.state().inventory!.id)">CategoryForm()</button>
+    <button (click)="categoryList(inventoryState.state().inventory!.id)">CategoryList()</button>
+</div>
+}

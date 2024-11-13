@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { InventoryService } from '../../services/inventory/inventory.service';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-inventory-form',
@@ -10,6 +11,8 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
   styleUrl: './inventory-form.component.css'
 })
 export class InventoryFormComponent {
+
+  private router = inject(Router);
   private formBuilder = inject(FormBuilder);
   private inventoryService = inject(InventoryService);
 
@@ -25,7 +28,9 @@ export class InventoryFormComponent {
       this.inventoryService.addInventory({
         name: this.inventoryForm.value.name!,
       }).subscribe({
-        next: () => console.log('Inventario agregado'),
+        next: () => {
+          this.redirectToInventoryList();
+        },
         error: (err) => console.log('Error al agregar invent', err)
       });
     }
@@ -33,5 +38,9 @@ export class InventoryFormComponent {
 
   clearSubmitted(): void {
     this.submitted = false;
+  }
+
+  redirectToInventoryList(): void {
+    this.router.navigate(['/inventory']);
   }
 }
