@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class InventoryService {
@@ -48,5 +49,10 @@ public class InventoryService {
 
     public List<InventoryDto> getInventoriesOfUserByEmail(String email) {
         return InventoryMapper.InventoryListToDtoList(userInventoryRoleRepository.findInventoriesByUserEmail(email));
+    }
+
+    public InventoryDto getInventoryById(UUID inventoryId) {
+        Optional<Inventory> optInventory = inventoryRepository.findById(inventoryId);
+        return optInventory.map(InventoryMapper::InventoryToDto).orElse(null);
     }
 }

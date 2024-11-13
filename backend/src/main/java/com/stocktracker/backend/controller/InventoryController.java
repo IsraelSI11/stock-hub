@@ -1,6 +1,7 @@
 package com.stocktracker.backend.controller;
 
 import com.stocktracker.backend.dto.InventoryDto;
+import com.stocktracker.backend.dto.ProductDto;
 import com.stocktracker.backend.enums.RoleName;
 import com.stocktracker.backend.mapper.InventoryMapper;
 import com.stocktracker.backend.model.Inventory;
@@ -55,6 +56,17 @@ public class InventoryController {
             return ResponseEntity.ok(inventories);
         }catch(Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(List.of());
+        }
+    }
+
+    @GetMapping("/{inventoryId}")
+    @ResponseBody
+    public ResponseEntity<InventoryDto> getInventoryById(@PathVariable(value="inventoryId") UUID inventoryId){
+        try{
+            InventoryDto inventoryDto = inventoryService.getInventoryById(inventoryId);
+            return ResponseEntity.ok(inventoryDto);
+        }catch(Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
 
