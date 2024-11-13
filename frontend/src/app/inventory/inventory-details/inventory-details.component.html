@@ -1,47 +1,62 @@
-@if(inventoryState.state().state == 'loading'){
-<div class="loading">
-    <p>Cargando inventario</p>
-</div>
-}@else {
-<h2>{{inventoryState.state().inventory!.name}}</h2>
+<h2>{{inventory!.name}}</h2>
 <div class="inventory-card">
     <div class="inventory-section">
         <h4>Products</h4>
-        @if(inventoryState.state().inventory!.products && inventoryState.state().inventory!.products.length > 0){
-        <p>{{inventoryState.state().inventory!.products.length}} productos</p>
-            @for (product of inventoryState.state().inventory!.products; track product.id) {
-            <div class="product-card">
-                <h3>{{ product.name }}</h3>
-                <div class="product-section">
-                    <h4>Detalles</h4>
-                    <p><strong>Categoría:</strong> {{ product.category.name }}</p>
-                    <p><strong>Stock:</strong> {{ product.stock }}</p>
-                    <p><strong>Precio:</strong> ${{ product.price }}</p>
-                </div>
-            </div>
-            }
-        }@else {
-        <p>0 productos</p>
-        }
-    </div>
+        <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)"
+            class="mat-elevation-z8">
 
+            <!-- Code Column -->
+            <ng-container matColumnDef="code">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by code"> Code </th>
+                <td mat-cell *matCellDef="let element"> {{element.code}} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name"> Name </th>
+                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            </ng-container>
+
+            <!-- Category Column -->
+            <ng-container matColumnDef="category">
+                <th mat-header-cell *matHeaderCellDef> Category </th>
+                <td mat-cell *matCellDef="let element"> {{element.category}} </td>
+            </ng-container>
+
+            <!-- Stock Column -->
+            <ng-container matColumnDef="stock">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by stock"> Stock </th>
+                <td mat-cell *matCellDef="let element"> {{element.stock}} </td>
+            </ng-container>
+
+            <!-- Price Column -->
+            <ng-container matColumnDef="price">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by price"> Price </th>
+                <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+    </div>
+    
     <div class="inventory-section">
         <h4>Categories</h4>
-        @if(inventoryState.state().inventory!.categories && inventoryState.state().inventory!.categories.length > 0){
-        <p>{{inventoryState.state().inventory!.categories.length}} categorías</p>
-            @for (category of inventoryState.state().inventory!.categories; track category.id) {
-                <div class="product-card">
-                    <h3>{{ category.name }}</h3>
-                </div>
-                }
+        @if(inventory!.categories && inventory!.categories.length > 0){
+        <p>{{inventory!.categories.length}} categorías</p>
+        @for (category of inventory!.categories; track category.id) {
+        <div class="product-card">
+            <h3>{{ category.name }}</h3>
+        </div>
+        }
         }@else {
         <p>0 categorías</p>
         }
     </div>
 
-    <button (click)="product(inventoryState.state().inventory!.id)">Product()</button>
-    <button (click)="productInv(inventoryState.state().inventory!.id)">ProductForm()</button>
-    <button (click)="categoryInv(inventoryState.state().inventory!.id)">CategoryForm()</button>
-    <button (click)="categoryList(inventoryState.state().inventory!.id)">CategoryList()</button>
+    <button mat-flat-button (click)="product(inventory!.id)">Product()</button>
+    <button mat-flat-button (click)="productInv(inventory!.id)">ProductForm()</button>
+    <button mat-flat-button (click)="categoryInv(inventory!.id)">CategoryForm()</button>
+    <button mat-flat-button (click)="categoryList(inventory!.id)">CategoryList()</button>
 </div>
-}

@@ -18,3 +18,12 @@ export interface ProductForm {
     stock: number;
     price: number;
 }
+
+export interface ProductItemTable {
+    id: string;
+    code: string;
+    name: string;
+    category: string;
+    stock: number;
+    price: number;
+}
