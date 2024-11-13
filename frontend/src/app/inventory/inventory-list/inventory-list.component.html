@@ -1,36 +1,48 @@
+@if(dataSource.data.length === 0){
 <main>
-    <button (click)="redirectToInventoryForm()">Añadir inventario</button>
-    @if(inventoriesState.state().inventories.length > 0){
+    <mat-spinner></mat-spinner>
+    <p>Cargando inventario...</p>
+</main>
+}@else {
+<main>
+    <button mat-flat-button color="primary" (click)="redirectToInventoryForm()">Añadir inventario</button>
     <section>
         <h2>Inventories</h2>
-        @for (inventory of inventoriesState.state().inventories; track inventory.id){
-        <div class="inventory-card">
-            <h3>{{ inventory.name }}</h3>
-            <button (click)="details(inventory.id)">Detales</button>
-            <div class="inventory-section">
-                <h4>Products</h4>
-                @if(inventory.products && inventory.products.length > 0){
-                <p>{{inventory.products.length}} productos</p>
-                }@else {
-                <p>No se han encontrado productos</p>
-                }
-            </div>
+        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
-            <div class="inventory-section">
-                <h4>Categories</h4>
-                @if(inventory.categories && inventory.categories.length > 0){
-                <p>{{inventory.categories.length}} categorías</p>
-                }@else {
-                <p>No se han encontrado categorías</p>
-                }
-            </div>
-        </div>
-        }
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+                <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+            </ng-container>
 
+            <!-- Products Column -->
+            <ng-container matColumnDef="products">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Productos</th>
+                <td mat-cell *matCellDef="let element">{{ element.products }}</td>
+            </ng-container>
+
+            <!-- Categories Column -->
+            <ng-container matColumnDef="categories">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Categorías</th>
+                <td mat-cell *matCellDef="let element">{{ element.categories }}</td>
+            </ng-container>
+
+            <!-- Actions Column -->
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef>Acciones</th>
+                <td mat-cell *matCellDef="let element">
+                    <button mat-button color="accent" (click)="details(element.id)">Detalles</button>
+                    <button mat-button color="primary" (click)="productInv(element.id)">Añadir producto</button>
+                    <button mat-button color="primary" (click)="categoryInv(element.id)">Añadir categoría</button>
+                    <button mat-button color="warn" (click)="categoryList(element.id)">Ver categorías</button>
+                </td>
+            </ng-container>
+
+            <!-- Header and Row Definitions -->
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
     </section>
-    } @else {
-    <section>
-        <p>No inventories found.</p>
-    </section>
-    }
 </main>
+}

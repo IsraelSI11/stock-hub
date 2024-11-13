@@ -8,11 +8,12 @@ import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { InventoryService } from '../../services/inventory/inventory.service';
 import { Inventory } from '../../shared/interfaces/inventory.interface';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-inventory-details',
   standalone: true,
-  imports: [MatButtonModule, MatTableModule, MatPaginatorModule, MatSortModule],
+  imports: [MatButtonModule, MatTableModule, MatPaginatorModule, MatSortModule, MatProgressSpinnerModule],
   providers: [InventoryService],
   templateUrl: './inventory-details.component.html',
   styleUrl: './inventory-details.component.css'

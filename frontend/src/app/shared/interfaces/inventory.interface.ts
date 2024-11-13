@@ -10,6 +10,13 @@ export interface Inventory {
     categories: Category[];
 }
 
+export interface InventoryItemTable{
+    id: string;
+    name: string;
+    products: number;
+    categories: number;
+}
+
 export interface InventoryForm{
     name: string;
     
