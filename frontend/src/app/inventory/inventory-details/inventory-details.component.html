@@ -9,6 +9,17 @@
         <h4>Products</h4>
         @if(inventoryState.state().inventory!.products && inventoryState.state().inventory!.products.length > 0){
         <p>{{inventoryState.state().inventory!.products.length}} productos</p>
+            @for (product of inventoryState.state().inventory!.products; track product.id) {
+            <div class="product-card">
+                <h3>{{ product.name }}</h3>
+                <div class="product-section">
+                    <h4>Detalles</h4>
+                    <p><strong>Categoría:</strong> {{ product.category.name }}</p>
+                    <p><strong>Stock:</strong> {{ product.stock }}</p>
+                    <p><strong>Precio:</strong> ${{ product.price }}</p>
+                </div>
+            </div>
+            }
         }@else {
         <p>0 productos</p>
         }
@@ -18,6 +29,11 @@
         <h4>Categories</h4>
         @if(inventoryState.state().inventory!.categories && inventoryState.state().inventory!.categories.length > 0){
         <p>{{inventoryState.state().inventory!.categories.length}} categorías</p>
+            @for (category of inventoryState.state().inventory!.categories; track category.id) {
+                <div class="product-card">
+                    <h3>{{ category.name }}</h3>
+                </div>
+                }
         }@else {
         <p>0 categorías</p>
         }
