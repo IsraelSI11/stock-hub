@@ -8,3 +8,36 @@ p{
     font-size: 1.5em;
     font-family: 'Roboto', sans-serif;
 }
+
+nav{
+    padding: 1.5em;
+    display: flex;
+    align-items: center;
+    gap: 3em;
+}
+
+nav ul{
+    display: flex;
+    justify-content: space-around;
+    list-style: none;
+    padding: 0;
+}
+
+img{
+    width: 40px;
+    height: 40px;
+}
+
+a {
+    font-size: 1.2em;
+    padding: 1em 3em;
+    color: #322963;         
+    text-decoration: none;   
+    font-weight: bold;       
+    transition: color 0.3s ease, background-color 0.3s ease; 
+    background-color: transparent;
+}
+
+a:hover {
+    background-color: var(--contrast-color)
+}
