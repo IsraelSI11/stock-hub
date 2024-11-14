@@ -38,13 +38,13 @@ public class ProductService {
         System.out.println(inventoryOptional.isPresent());
         if(inventoryOptional.isPresent()) {
             Inventory inventory = inventoryOptional.get();
-            Category cat = new Category(category, inventory);
-            categoryRepository.save(cat);
-            Product product = new Product(code, name, imageUrl, inventory, cat, stock, price);
-            return Optional.of(productRepository.save(product));
-        }else{
-            return Optional.empty();
+            Optional<Category> optCategory = categoryRepository.findByNameAndInventoryId(category, inventoryId);
+            if(optCategory.isPresent()) {
+                Product product = new Product(code, name, imageUrl, inventory, optCategory.get(), stock, price);
+                return Optional.of(productRepository.save(product));
+            }
         }
+        return Optional.empty();
     }
 
     public Optional<Product> getProduct(UUID id) {

@@ -16,4 +16,6 @@ public interface UserInventoryRoleRepository extends JpaRepository<UserInventory
 
     @Query("SELECT uir.inventory FROM UserInventoryRole uir WHERE uir.user.email = :email")
     List<Inventory> findInventoriesByUserEmail(@Param("email") String email);
+
+    List<UserInventoryRole> findByInventoryId(UUID inventoryId);
 }

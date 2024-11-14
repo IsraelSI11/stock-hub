@@ -66,7 +66,7 @@ public class InventoryController {
             InventoryDto inventoryDto = inventoryService.getInventoryById(inventoryId);
             return ResponseEntity.ok(inventoryDto);
         }catch(Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null                                                                                                                                                                        );
         }
     }
 
