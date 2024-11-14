@@ -2,19 +2,29 @@
     @if(invitationState.state().state === 'success'){
     <section>
         <h2>Invitaciones</h2>
-        @for (invitation of invitationState.state().invitations; track invitation.id) {
-        <div class="invitation-card">
-            <p>From: {{invitation.fromUser.email}}</p>
-            <p>To: {{invitation.toUser.email}}</p>
-            <p>Role: {{invitation.role}}</p>
-            <button (click)="acceptInvitation(invitation.id)">Accept</button>
-            <button (click)="declineInvitation(invitation.id)">Decline</button>
+        <div class="invitation-container">
+            @for (invitation of invitationState.state().invitations; track invitation.id) {
+            <mat-card appearance="outlined">
+                <mat-card-content class="invitation-content">
+                    <p>{{invitation.fromUser.email}}</p>
+                    <p>{{invitation.role}}</p>
+                    <div>
+                        <button mat-stroked-button color (click)="acceptInvitation(invitation.id)">
+                            Accept
+                        </button>
+                        <button mat-flat-button (click)="declineInvitation(invitation.id)">
+                            Decline
+                        </button>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+            }
         </div>
-        }
+
     </section>
     } @else if (invitationState.state().state === 'loading') {
     <section>
-        <p>Cargando invitaciones...</p>
+        <mat-spinner></mat-spinner>
     </section>
     } @else if (invitationState.state().state === 'error') {
     <section>

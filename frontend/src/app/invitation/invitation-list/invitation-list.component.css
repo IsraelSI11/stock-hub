@@ -1,0 +1,11 @@
+.invitation-container{
+    width: 50%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.invitation-content{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
