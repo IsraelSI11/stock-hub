@@ -31,6 +31,21 @@
     }
     }
     <mat-form-field>
+        <mat-label for="category">Select</mat-label>
+        <mat-select id="category" formControlName="category" required>
+            @for (category of categoryStateService.state().categories; track category.id) {
+                <mat-option [value]="category.name">{{category.name}}</mat-option>
+            }
+        </mat-select>
+    </mat-form-field>
+    @if(submitted && productForm.get('category')!.invalid) {
+    @if(productForm.get('category')!.hasError('required')) {
+    <p class="error">La categoría es obligatoria</p>
+    }
+    }
+
+
+    <mat-form-field>
         <mat-label for="imageUrl">Imagen del producto</mat-label>
         <input matInput id="imageUrl" formControlName="imageUrl" required>
     </mat-form-field>

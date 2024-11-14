@@ -55,6 +55,20 @@ export class InventoryService {
     );
   }
 
+
+  getUsersOfInventory(inventoryId: string): Observable<any> {
+    // Configuración para enviar cookies con la solicitud
+    const options = {
+      withCredentials: true,
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    
+    return this.http.get(`${apiUrl}/inventory/user/${inventoryId}`, options).pipe(
+      tap(() => console.log('Usuarios obtenidos'))
+    );
+  }
     
 
 }

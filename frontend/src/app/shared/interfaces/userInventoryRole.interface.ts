@@ -1,9 +1,11 @@
 import { RoleName } from "../enum/roleName";
 import { Inventory } from "./inventory.interface";
+import { User } from "./user.interface";
 
 export interface UserInventoryRole{
     id: string;
-    role: RoleName;
+    user: User;
+    roleName: RoleName;
     inventory: Inventory;
 }
 

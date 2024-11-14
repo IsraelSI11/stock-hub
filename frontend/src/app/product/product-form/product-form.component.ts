@@ -5,11 +5,14 @@ import { ActivatedRoute } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { CategoryStateService } from '../../services/category/category-state.service';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-product-form',
   standalone: true,
-  imports: [ReactiveFormsModule, MatButtonModule, MatFormFieldModule, MatInputModule],
+  imports: [ReactiveFormsModule, MatButtonModule, MatFormFieldModule, MatInputModule, MatSelectModule],
+  providers: [ProductService, CategoryStateService],
   templateUrl: './product-form.component.html',
   styleUrl: './product-form.component.css'
 })
@@ -19,6 +22,7 @@ export class ProductFormComponent implements OnInit {
   private route = inject(ActivatedRoute);
 
   private formBuilder = inject(FormBuilder);
+  categoryStateService = inject(CategoryStateService);
   private productService = inject(ProductService);
 
   inventoryId = '';
@@ -27,6 +31,8 @@ export class ProductFormComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.inventoryId = params['id'];
     });
+
+    this.categoryStateService.loadCategoriesByInventoryId(this.inventoryId);
   }
 
   submitted = false;
@@ -34,6 +40,7 @@ export class ProductFormComponent implements OnInit {
   productForm = this.formBuilder.group({
     code: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(8)]],
     name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
+    category:['', [Validators.required]],
     imageUrl: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(255)]],
     price: ['',[ Validators.required, Validators.min(0.01), Validators.max(999999.99)]],
     stock: ['', [Validators.required, Validators.min(0)]],
@@ -45,7 +52,7 @@ export class ProductFormComponent implements OnInit {
       this.productService.addProduct({
         code: this.productForm.value.code!,
         name: this.productForm.value.name!,
-        category: 'cati',
+        category: this.productForm.value.category!,
         imageUrl: this.productForm.value.imageUrl!,
         price: parseFloat(this.productForm.value.price!),
         stock: parseFloat(this.productForm.value.stock!)

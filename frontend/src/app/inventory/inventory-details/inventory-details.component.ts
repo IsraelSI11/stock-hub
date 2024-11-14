@@ -70,6 +70,10 @@ export class InventoryDetailsComponent implements OnInit, AfterViewInit {
     this.router.navigate(['/category/', inventoryId]);
   }
 
+  inventoryUsers(inventoryId: string) {
+    this.router.navigate(['/inventory/user', inventoryId]);
+  }
+
   announceSortChange(sortState: Sort) {
     console.log(sortState);
     // This example uses English messages. If your application supports
