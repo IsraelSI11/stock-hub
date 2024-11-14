@@ -1,6 +1,8 @@
 <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
-    <label for="name">Nombre de la categoría</label>
-    <input id="name" formControlName="name" />
+    <mat-form-field>
+        <mat-label for="name">Nombre de la categoría</mat-label>
+        <input matInput id="name" formControlName="name">
+    </mat-form-field>
     @if(submitted && categoryForm.get('name')!.invalid) {
     @if(categoryForm.get('name')!.hasError('required')) {
     <p class="error">El nombre es obligatorio</p>

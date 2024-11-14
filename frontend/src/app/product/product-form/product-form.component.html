@@ -1,6 +1,8 @@
 <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
-    <label for="code">Código del producto</label>
-    <input id="code" formControlName="code" />
+    <mat-form-field>
+        <mat-label for="code">Código del producto</mat-label>
+        <input matInput id="code" formControlName="code" required>
+    </mat-form-field>
     @if(submitted && productForm.get('code')!.invalid) {
     @if(productForm.get('code')!.hasError('required')) {
     <p class="error">El código es obligatorio</p>
@@ -13,8 +15,10 @@
     }
     }
 
-    <label for="name">Nombre del producto</label>
-    <input id="name" formControlName="name" />
+    <mat-form-field>
+        <mat-label for="name">Nombre del producto</mat-label>
+        <input matInput id="name" formControlName="name" required>
+    </mat-form-field>
     @if(submitted && productForm.get('name')!.invalid) {
     @if(productForm.get('name')!.hasError('required')) {
     <p class="error">El nombre es obligatorio</p>
@@ -26,9 +30,10 @@
     <p class="error">El nombre no puede tener más de 50 caracteres</p>
     }
     }
-
-    <label for="imageUrl">URL de la imagen</label>
-    <input id="imageUrl" formControlName="imageUrl" />
+    <mat-form-field>
+        <mat-label for="imageUrl">Imagen del producto</mat-label>
+        <input matInput id="imageUrl" formControlName="imageUrl" required>
+    </mat-form-field>
     @if(submitted && productForm.get('imageUrl')!.invalid) {
     @if(productForm.get('imageUrl')!.hasError('required')) {
     <p class="error">La URL de la imagen es obligatoria</p>
@@ -40,9 +45,10 @@
     <p class="error">La URL de la imagen no puede tener más de 255 caracteres</p>
     }
     }
-
-    <label for="price">Precio</label>
-    <input id="price" formControlName="price" type="number" />
+    <mat-form-field>
+        <mat-label for="price">Precio</mat-label>
+        <input matInput id="price" formControlName="price" type="number" required>
+    </mat-form-field>
     @if(submitted && productForm.get('price')!.invalid) {
     @if(productForm.get('price')!.hasError('required')) {
     <p class="error">El precio es obligatorio</p>
@@ -54,9 +60,10 @@
     <p class="error">El precio no puede ser mayor a 999,999.99</p>
     }
     }
-
-    <label for="stock">Stock</label>
-    <input id="stock" formControlName="stock" type="number" />
+    <mat-form-field>
+        <mat-label for="stock">Stock</mat-label>
+        <input matInput id="stock" formControlName="stock" type="number" required>
+    </mat-form-field>
     @if(submitted && productForm.get('stock')!.invalid) {
     @if(productForm.get('stock')!.hasError('required')) {
     <p class="error">El stock es obligatorio</p>
@@ -66,5 +73,5 @@
     }
     }
 
-    <button type="submit">Crear producto</button>
+    <button mat-flat-button type="submit">Crear producto</button>
 </form>

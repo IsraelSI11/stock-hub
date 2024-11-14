@@ -2,9 +2,11 @@
     <h2>Register</h2>
     <form (ngSubmit)="onSubmit()" [formGroup]="registerForm">
         <div>
-            <label for="username">Username:</label>
-            <input type="text" id="username" formControlName="username" (input)="clearSubmitted()" name="username"
-                required>
+            <mat-form-field>
+                <mat-label for="username">Username:</mat-label>
+                <input matInput type="text" id="username" formControlName="username" (input)="clearSubmitted()"
+                    name="username" required>
+            </mat-form-field>
             <!-- <div *ngIf="submitted && registerForm.invalid">
                 <div *ngIf="registerForm.get('username')!.hasError('required') && (registerForm.get('username')!.touched || registerForm.get('username')!.dirty)">
                     <p class="error">Username is required</p>
@@ -12,8 +14,11 @@
             </div> -->
         </div>
         <div>
-            <label for="email">Email:</label>
-            <input type="email" id="email" formControlName="email" (input)="clearSubmitted()" name="email" required>
+            <mat-form-field>
+                <mat-label for="email">Email:</mat-label>
+                <input matInput type="email" id="email" formControlName="email" (input)="clearSubmitted()" name="email"
+                    required>
+            </mat-form-field>
             <!-- <div *ngIf="submitted && registerForm.invalid"></div>
                 <div *ngIf="registerForm.get('email')!.hasError('required') && (registerForm.get('email')!.touched || registerForm.get('email')!.dirty)"></div>
                     <p class="error">Email is required</p>
@@ -25,9 +30,11 @@
         </div>
         <div formGroupName="passwordGroup">
             <div>
-                <label for="password">Password:</label>
-                <input type="password" id="password" formControlName="password" (input)="clearSubmitted()"
-                    name="password" required>
+                <mat-form-field>
+                    <mat-label for="password">Password:</mat-label>
+                    <input matInput type="password" id="password" formControlName="password" (input)="clearSubmitted()"
+                        name="password" required>
+                </mat-form-field>
                 <!-- <div *ngIf="submitted && registerForm.invalid">
                     <div *ngIf="registerForm.get('password')!.hasError('required') && (registerForm.get('password')!.touched || registerForm.get('password')!.dirty)">
                         <p class="error">Password is required</p>
@@ -38,16 +45,18 @@
                 </div> -->
                 @if(submitted && registerForm.invalid)
                 {
-       
-                    @if(registerForm.get('passwordGroup')!.hasError('passwordMatch')){
-                        <p class="error">Password must contain at least one letter and one number</p>
-                    }
+
+                @if(registerForm.get('passwordGroup')!.hasError('passwordMatch')){
+                <p class="error">Password must contain at least one letter and one number</p>
+                }
                 }
             </div>
             <div>
-                <label for="confirmPassword">Confirm Password:</label>
-                <input type="password" id="confirmPassword" formControlName="confirmPassword" (input)="clearSubmitted()"
-                    name="confirmPassword" required>
+                <mat-form-field>
+                    <mat-label for="confirmPassword">Confirm Password:</mat-label>
+                    <input matInput type="password" id="confirmPassword" formControlName="confirmPassword"
+                        (input)="clearSubmitted()" name="confirmPassword" required>
+                </mat-form-field>
                 <!-- <div *ngIf="submitted && registerForm.invalid">
                     <div *ngIf="registerForm.get('confirmPassword')!.hasError('required') && (registerForm.get('confirmPassword')!.touched || registerForm.get('confirmPassword')!.dirty)">
                         <p class="error">Confirm Password is required</p>
@@ -59,7 +68,7 @@
             </div>
         </div>
 
-        <button type="submit">Register</button>
+        <button mat-flat-button type="submit">Register</button>
         <!-- <div *ngIf="submitted && error">
             <p class="error">{{error}}</p>
         </div> -->

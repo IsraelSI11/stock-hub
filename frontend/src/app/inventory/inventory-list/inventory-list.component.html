@@ -1,41 +1,30 @@
-@if(dataSource.data.length === 0){
 <main>
-    <mat-spinner></mat-spinner>
-    <p>Cargando inventario...</p>
-</main>
-}@else {
-<main>
+    <!-- Add Inventory Button -->
     <button mat-flat-button color="primary" (click)="redirectToInventoryForm()">Añadir inventario</button>
+    
+    <!-- Inventory List Table -->
     <section>
         <h2>Inventories</h2>
-        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)" class="mat-elevation-z8">
 
             <!-- Name Column -->
             <ng-container matColumnDef="name">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name">Nombre</th>
                 <td mat-cell *matCellDef="let element">{{ element.name }}</td>
             </ng-container>
 
             <!-- Products Column -->
             <ng-container matColumnDef="products">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Productos</th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by products">Productos</th>
                 <td mat-cell *matCellDef="let element">{{ element.products }}</td>
             </ng-container>
 
-            <!-- Categories Column -->
+            <!-- Categories Column with Details Button -->
             <ng-container matColumnDef="categories">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Categorías</th>
-                <td mat-cell *matCellDef="let element">{{ element.categories }}</td>
-            </ng-container>
-
-            <!-- Actions Column -->
-            <ng-container matColumnDef="actions">
-                <th mat-header-cell *matHeaderCellDef>Acciones</th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by categories">Categorías</th>
                 <td mat-cell *matCellDef="let element">
+                    {{ element.categories }} 
                     <button mat-button color="accent" (click)="details(element.id)">Detalles</button>
-                    <button mat-button color="primary" (click)="productInv(element.id)">Añadir producto</button>
-                    <button mat-button color="primary" (click)="categoryInv(element.id)">Añadir categoría</button>
-                    <button mat-button color="warn" (click)="categoryList(element.id)">Ver categorías</button>
                 </td>
             </ng-container>
 
@@ -45,4 +34,3 @@
         </table>
     </section>
 </main>
-}

@@ -1,12 +1,13 @@
 import { AfterViewInit, Component, inject, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatSort, MatSortModule } from '@angular/material/sort';
+import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Inventory, InventoryItemTable } from '../../shared/interfaces/inventory.interface';
 import { InventoryService } from '../../services/inventory/inventory.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 
 @Component({
   selector: 'app-inventory-list',
@@ -18,21 +19,23 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 })
 export class InventoryListComponent implements OnInit, AfterViewInit {
 
+  private _liveAnnouncer = inject(LiveAnnouncer);
+
   private router = inject(Router);
   inventoriesService = inject(InventoryService);
   dataSource = new MatTableDataSource<InventoryItemTable>([]);
   displayedColumns: string[] = ['name', 'products', 'categories'];
 
-  @ViewChild(MatSort) sort!: MatSort;
-
   ngOnInit(): void {
     this.inventoriesService.getInventoriesOfUser().subscribe({
       next: (inventories) => {
-        this.dataSource.data = this.parseInventories(inventories);
+        this.dataSource =  new MatTableDataSource(this.parseInventories(inventories));
       },
       error: (err) => console.log('Error al obtener inventarios', err)
     });
   }
+
+  @ViewChild(MatSort) sort!: MatSort;
 
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
@@ -59,6 +62,19 @@ export class InventoryListComponent implements OnInit, AfterViewInit {
   categoryList(inventoryId: string) {
     // Implement the action to view categories of the inventory
     console.log('Viewing categories for inventory with ID:', inventoryId);
+  }
+
+  announceSortChange(sortState: Sort) {
+    console.log(sortState);
+    // This example uses English messages. If your application supports
+    // multiple language, you would internationalize these strings.
+    // Furthermore, you can customize the message to add additional
+    // details about the values being sorted.
+    if (sortState.direction) {
+      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+    } else {
+      this._liveAnnouncer.announce('Sorting cleared');
+    }
   }
 
   parseInventories(inventories: Inventory[]): InventoryItemTable[] {
