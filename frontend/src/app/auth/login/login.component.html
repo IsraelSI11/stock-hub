@@ -1,45 +1,49 @@
-<div class="login-container">
-    <h2>Iniciar Sesión</h2>
-    <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
-        <div>
-            <mat-form-field>
-                <mat-label for="email">Correo electrónico:</mat-label>
-                <input matInput type="text" id="email" formControlName="email" (input)="clearSubmitted()" name="email"
+<main>
+    <div class="login-dialog">
+        <div class="warehouse-background"></div>
+        <form (ngSubmit)="onSubmit()" [formGroup]="loginForm" class="login-form">
+            <h2>Iniciar Sesión</h2>
+            <div>
+                <mat-form-field>
+                    <mat-label for="email">Correo electrónico:</mat-label>
+                    <input matInput type="text" id="email" formControlName="email" (input)="clearSubmitted()" name="email"
+                        required>
+                </mat-form-field>
+                @if(submitted && loginForm.invalid) {
+                @if(loginForm.get('email')!.hasError('required') && (loginForm.get('email')!.touched ||
+                loginForm.get('email')!.dirty)) {
+                <p class="error">El correo electrónico es requerido</p>
+                }
+                @if(loginForm.get('email')!.hasError('email') && (loginForm.get('email')!.touched ||
+                loginForm.get('email')!.dirty)) {
+                <p class="error">Debes introducir un correo electrónico válido</p>
+                }
+                }
+            </div>
+            <div>
+                <mat-form-field>
+                    <mat-label for="password">Contraseña:</mat-label>
+                    <input matInput type="password" id="password" formControlName="password" (input)="clearSubmitted()" name="password"
                     required>
-            </mat-form-field>
-            @if(submitted && loginForm.invalid) {
-            @if(loginForm.get('email')!.hasError('required') && (loginForm.get('email')!.touched ||
-            loginForm.get('email')!.dirty)) {
-            <p class="error">El correo electrónico es requerido</p>
+                </mat-form-field>
+                @if(submitted && loginForm.invalid) {
+                @if(loginForm.get('password')!.hasError('required') && (loginForm.get('password')!.touched ||
+                loginForm.get('password')!.dirty)) {
+                <p class="error">Debes introducir una contraseña</p>
+                }
+                @if((loginForm.get('password')!.hasError('minlength') || loginForm.get('password')!.hasError('maxlength'))
+                && (loginForm.get('password')!.touched || loginForm.get('password')!.dirty)) {
+                <p class="error">La contraseña debe tener entre 6 y 20 caracteres</p>
+                }
+                }
+            </div>
+            <div class="submit-container">
+                <button mat-flat-button type="submit">Ingresar</button>
+            </div>
+            @if(submitted && error) {
+            <p class="error">{{error}}</p>
             }
-            @if(loginForm.get('email')!.hasError('email') && (loginForm.get('email')!.touched ||
-            loginForm.get('email')!.dirty)) {
-            <p class="error">Debes introducir un correo electrónico válido</p>
-            }
-            }
-        </div>
-        <div>
-            <mat-form-field>
-                <mat-label for="password">Contraseña:</mat-label>
-                <input matInput type="password" id="password" formControlName="password" (input)="clearSubmitted()" name="password"
-                required>
-            </mat-form-field>
-            @if(submitted && loginForm.invalid) {
-            @if(loginForm.get('password')!.hasError('required') && (loginForm.get('password')!.touched ||
-            loginForm.get('password')!.dirty)) {
-            <p class="error">Debes introducir una contraseña</p>
-            }
-            @if((loginForm.get('password')!.hasError('minlength') || loginForm.get('password')!.hasError('maxlength'))
-            && (loginForm.get('password')!.touched || loginForm.get('password')!.dirty)) {
-            <p class="error">La contraseña debe tener entre 6 y 20 caracteres</p>
-            }
-            }
-        </div>
-        <button mat-flat-button type="submit">Ingresar</button>
-        @if(submitted && error) {
-        <p class="error">{{error}}</p>
-        }
-
-        <p>¿No tienes una cuenta? <button mat-flat-button    (click)="redirectToRegister()">Regístrate</button></p>
-    </form>
-</div>
+            <p>¿No tienes una cuenta? <button mat-flat-button (click)="redirectToRegister()">Regístrate</button></p>
+        </form>
+    </div>
+</main>

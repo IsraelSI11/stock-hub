@@ -3,11 +3,15 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InvitationService } from '../../services/invitation/invitation.service';
 import { ActivatedRoute } from '@angular/router';
 import { RoleName } from '../../shared/enum/roleName';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-invitation-form',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, MatButtonModule, MatFormFieldModule, MatInputModule, MatSelectModule],
   templateUrl: './invitation-form.component.html',
   styleUrl: './invitation-form.component.css'
 })

@@ -1,21 +1,31 @@
-<form [formGroup]="invitationForm" (ngSubmit)="onSubmit()">
-    <label for="to">Enviar a: </label>
-    <input id="to" formControlName="to" />
-    @if(submitted && invitationForm.get('to')!.invalid) {
-        @if(invitationForm.get('to')!.hasError('required')) {
-        <p class="error">El to es obligatorio</p>
-        }
-        @else if(invitationForm.get('to')!.hasError('email')) {
-        <p class="error">El to debe tener formato to</p>
-        }
-    }
-
-    <label for="role">Rol</label>
-    <input id="role" formControlName="role" />
-    @if(submitted && invitationForm.get('role')!.invalid) {
-        @if(invitationForm.get('role')!.hasError('required')) {
-        <p class="error">El rol es obligatorio</p>
-        }
-    }
-    <button type="submit">Enviar invitación</button>
-</form>
+<main>
+    <div class="invitation-container">
+        <h1>Enviar invitación</h1>
+        <form [formGroup]="invitationForm" (ngSubmit)="onSubmit()" class="invitation-form">
+            <mat-form-field>
+                <mat-label for="to">Enviar a: </mat-label>
+                <input matInput id="to" formControlName="to" required>
+            </mat-form-field>
+            @if(submitted && invitationForm.get('to')!.invalid) {
+            @if(invitationForm.get('to')!.hasError('required')) {
+            <p class="error">El to es obligatorio</p>
+            }
+            @else if(invitationForm.get('to')!.hasError('email')) {
+            <p class="error">El to debe tener formato to</p>
+            }
+            }
+            <mat-form-field>
+                <mat-label for="role">Rol</mat-label>
+                <input matInput id="role" formControlName="role" required>
+            </mat-form-field>
+            @if(submitted && invitationForm.get('role')!.invalid) {
+            @if(invitationForm.get('role')!.hasError('required')) {
+            <p class="error">El rol es obligatorio</p>
+            }
+            }
+            <div class="submit-container">
+                <button mat-flat-button type="submit">Enviar invitación</button>
+            </div>
+        </form>
+    </div>
+</main>

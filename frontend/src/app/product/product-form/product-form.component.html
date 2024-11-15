@@ -1,92 +1,99 @@
-<form [formGroup]="productForm" (ngSubmit)="onSubmit()">
-    <mat-form-field>
-        <mat-label for="code">Código del producto</mat-label>
-        <input matInput id="code" formControlName="code" required>
-    </mat-form-field>
-    @if(submitted && productForm.get('code')!.invalid) {
-    @if(productForm.get('code')!.hasError('required')) {
-    <p class="error">El código es obligatorio</p>
-    }
-    @else if(productForm.get('code')!.hasError('minlength')) {
-    <p class="error">El código debe tener al menos 2 caracteres</p>
-    }
-    @else if(productForm.get('code')!.hasError('maxlength')) {
-    <p class="error">El código no puede tener más de 8 caracteres</p>
-    }
-    }
-
-    <mat-form-field>
-        <mat-label for="name">Nombre del producto</mat-label>
-        <input matInput id="name" formControlName="name" required>
-    </mat-form-field>
-    @if(submitted && productForm.get('name')!.invalid) {
-    @if(productForm.get('name')!.hasError('required')) {
-    <p class="error">El nombre es obligatorio</p>
-    }
-    @else if(productForm.get('name')!.hasError('minlength')) {
-    <p class="error">El nombre debe tener al menos 2 caracteres</p>
-    }
-    @else if(productForm.get('name')!.hasError('maxlength')) {
-    <p class="error">El nombre no puede tener más de 50 caracteres</p>
-    }
-    }
-    <mat-form-field>
-        <mat-label for="category">Select</mat-label>
-        <mat-select id="category" formControlName="category" required>
-            @for (category of categoryStateService.state().categories; track category.id) {
-                <mat-option [value]="category.name">{{category.name}}</mat-option>
+<main>
+    <div class="product-container">
+        <h1>Añadir producto</h1>
+        <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+            <mat-form-field>
+                <mat-label for="code">Código del producto</mat-label>
+                <input matInput id="code" formControlName="code" required>
+            </mat-form-field>
+            @if(submitted && productForm.get('code')!.invalid) {
+            @if(productForm.get('code')!.hasError('required')) {
+            <p class="error">El código es obligatorio</p>
             }
-        </mat-select>
-    </mat-form-field>
-    @if(submitted && productForm.get('category')!.invalid) {
-    @if(productForm.get('category')!.hasError('required')) {
-    <p class="error">La categoría es obligatoria</p>
-    }
-    }
+            @else if(productForm.get('code')!.hasError('minlength')) {
+            <p class="error">El código debe tener al menos 2 caracteres</p>
+            }
+            @else if(productForm.get('code')!.hasError('maxlength')) {
+            <p class="error">El código no puede tener más de 8 caracteres</p>
+            }
+            }
+
+            <mat-form-field>
+                <mat-label for="name">Nombre del producto</mat-label>
+                <input matInput id="name" formControlName="name" required>
+            </mat-form-field>
+            @if(submitted && productForm.get('name')!.invalid) {
+            @if(productForm.get('name')!.hasError('required')) {
+            <p class="error">El nombre es obligatorio</p>
+            }
+            @else if(productForm.get('name')!.hasError('minlength')) {
+            <p class="error">El nombre debe tener al menos 2 caracteres</p>
+            }
+            @else if(productForm.get('name')!.hasError('maxlength')) {
+            <p class="error">El nombre no puede tener más de 50 caracteres</p>
+            }
+            }
+            <mat-form-field>
+                <mat-label for="category">Select</mat-label>
+                <mat-select id="category" formControlName="category" required>
+                    @for (category of categoryStateService.state().categories; track category.id) {
+                    <mat-option [value]="category.name">{{category.name}}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+            @if(submitted && productForm.get('category')!.invalid) {
+            @if(productForm.get('category')!.hasError('required')) {
+            <p class="error">La categoría es obligatoria</p>
+            }
+            }
 
 
-    <mat-form-field>
-        <mat-label for="imageUrl">Imagen del producto</mat-label>
-        <input matInput id="imageUrl" formControlName="imageUrl" required>
-    </mat-form-field>
-    @if(submitted && productForm.get('imageUrl')!.invalid) {
-    @if(productForm.get('imageUrl')!.hasError('required')) {
-    <p class="error">La URL de la imagen es obligatoria</p>
-    }
-    @else if(productForm.get('imageUrl')!.hasError('minlength')) {
-    <p class="error">La URL de la imagen debe tener al menos 8 caracteres</p>
-    }
-    @else if(productForm.get('imageUrl')!.hasError('maxlength')) {
-    <p class="error">La URL de la imagen no puede tener más de 255 caracteres</p>
-    }
-    }
-    <mat-form-field>
-        <mat-label for="price">Precio</mat-label>
-        <input matInput id="price" formControlName="price" type="number" required>
-    </mat-form-field>
-    @if(submitted && productForm.get('price')!.invalid) {
-    @if(productForm.get('price')!.hasError('required')) {
-    <p class="error">El precio es obligatorio</p>
-    }
-    @else if(productForm.get('price')!.hasError('min')) {
-    <p class="error">El precio debe ser mayor a 0.01</p>
-    }
-    @else if(productForm.get('price')!.hasError('max')) {
-    <p class="error">El precio no puede ser mayor a 999,999.99</p>
-    }
-    }
-    <mat-form-field>
-        <mat-label for="stock">Stock</mat-label>
-        <input matInput id="stock" formControlName="stock" type="number" required>
-    </mat-form-field>
-    @if(submitted && productForm.get('stock')!.invalid) {
-    @if(productForm.get('stock')!.hasError('required')) {
-    <p class="error">El stock es obligatorio</p>
-    }
-    @else if(productForm.get('stock')!.hasError('min')) {
-    <p class="error">El stock no puede ser menor a 0</p>
-    }
-    }
+            <mat-form-field>
+                <mat-label for="imageUrl">Imagen del producto</mat-label>
+                <input matInput id="imageUrl" formControlName="imageUrl" required>
+            </mat-form-field>
+            @if(submitted && productForm.get('imageUrl')!.invalid) {
+            @if(productForm.get('imageUrl')!.hasError('required')) {
+            <p class="error">La URL de la imagen es obligatoria</p>
+            }
+            @else if(productForm.get('imageUrl')!.hasError('minlength')) {
+            <p class="error">La URL de la imagen debe tener al menos 8 caracteres</p>
+            }
+            @else if(productForm.get('imageUrl')!.hasError('maxlength')) {
+            <p class="error">La URL de la imagen no puede tener más de 255 caracteres</p>
+            }
+            }
+            <mat-form-field>
+                <mat-label for="price">Precio</mat-label>
+                <input matInput id="price" formControlName="price" type="number" required>
+            </mat-form-field>
+            @if(submitted && productForm.get('price')!.invalid) {
+            @if(productForm.get('price')!.hasError('required')) {
+            <p class="error">El precio es obligatorio</p>
+            }
+            @else if(productForm.get('price')!.hasError('min')) {
+            <p class="error">El precio debe ser mayor a 0.01</p>
+            }
+            @else if(productForm.get('price')!.hasError('max')) {
+            <p class="error">El precio no puede ser mayor a 999,999.99</p>
+            }
+            }
+            <mat-form-field>
+                <mat-label for="stock">Stock</mat-label>
+                <input matInput id="stock" formControlName="stock" type="number" required>
+            </mat-form-field>
+            @if(submitted && productForm.get('stock')!.invalid) {
+            @if(productForm.get('stock')!.hasError('required')) {
+            <p class="error">El stock es obligatorio</p>
+            }
+            @else if(productForm.get('stock')!.hasError('min')) {
+            <p class="error">El stock no puede ser menor a 0</p>
+            }
+            }
+            <div class="submit-container">
+                <button mat-flat-button type="submit">Crear producto</button>
+            </div>
+        </form>
+    </div>
 
-    <button mat-flat-button type="submit">Crear producto</button>
-</form>
+</main>

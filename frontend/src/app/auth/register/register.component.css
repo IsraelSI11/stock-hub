@@ -1,0 +1,69 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    height: 100%;
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5; /* Color de fondo */
+    display: flex;
+    flex-direction: column; /* Alineación en columnas */
+}
+
+main {
+    flex: 1; /* Ocupa el espacio restante debajo del navbar */
+    display: flex;
+    height: 85%;
+    justify-content: center;
+    align-items: center;
+}
+
+.register-dialog {
+    display: flex; /* Flexbox para dividir imagen y formulario */
+    width: 50%; /* Ocupa todo el ancho del contenedor */
+    height: 70%; /* Altura completa del diálogo */
+    gap: 1rem; /* Espacio entre imagen y formulario */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.warehouse-background {
+    flex: 1; /* Imagen ocupa el 25% del diálogo */
+    max-width: 25%; /* Límite máximo de ancho */
+    background-image: url('/warehouse.jpg'); /* Imagen de fondo */
+    background-size: cover; /* Imagen cubre el contenedor */
+    background-position: center; /* Centrar la imagen */
+    border-radius: 10px 0 0 10px; /* Opcional: Bordes redondeados en la izquierda */
+}
+
+.register-form {
+    flex: 3; /* Formulario ocupa el 75% del diálogo */
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem; /* Espaciado entre los elementos del formulario */
+}
+
+.register-form *{
+    width: 100%;
+}
+
+.submit-container{
+    display: flex;
+    justify-content: end;
+}
+
+button {
+    max-width: 12em;
+    padding: 0.75rem;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease; /* Transición suave */
+}
+
+button:hover {
+    background-color: #1565c0; /* Azul más oscuro */
+}
