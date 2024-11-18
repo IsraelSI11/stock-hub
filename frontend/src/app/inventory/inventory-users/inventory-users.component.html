@@ -1,4 +1,13 @@
-@for (userInventoryRole of inventoryUsers(); track userInventoryRole.id) {
-    <p>{{userInventoryRole.user.email}}</p>
-    <p>{{userInventoryRole.roleName}}</p>
-}
+<main>
+    <h1>Usuarios</h1>
+    <div class="users-grid">
+        @for (userInventoryRole of inventoryUsers(); track userInventoryRole.id) {
+        <div class="user-card">
+            <div class="user-info">
+                <p class="user-email">{{userInventoryRole.user.email}}</p>
+                <p class="user-role">{{userInventoryRole.roleName}}</p>
+            </div>
+        </div>
+        }
+    </div>
+</main>
