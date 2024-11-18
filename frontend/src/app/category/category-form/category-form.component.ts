@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CategoryService } from '../../services/category/category.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -16,6 +16,7 @@ export default class CategoryFormComponent implements OnInit {
 
   
   private route = inject(ActivatedRoute);
+  private router = inject(Router);
 
   private formBuilder = inject(FormBuilder);
   private categoryService = inject(CategoryService);
@@ -40,7 +41,7 @@ export default class CategoryFormComponent implements OnInit {
       this.categoryService.addCategory({
         name: this.categoryForm.value.name!,
       }, this.inventoryId).subscribe({
-        next: () => console.log('Categoría agregada'),
+        next: () => this.router.navigate(['/inventory', this.inventoryId]),
         error: (err) => console.log('Error al agregar categoría', err)
       });
     }

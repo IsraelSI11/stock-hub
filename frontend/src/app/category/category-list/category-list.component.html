@@ -1,20 +1,22 @@
 <main>
     @if(categoryState.state().state === 'success'){
-    <section>
-        <h2>Productos</h2>
-        @for (category of categoryState.state().categories; track category.id) {
-        <div class="category-card">
-            <h3>{{ category.name }}</h3>
+    <section class="category-section">
+        <h2>Categorías</h2>
+        <div class="category-grid">
+            @for (category of categoryState.state().categories; track category.id) {
+            <div class="category-card">
+                <h3>{{ category.name }}</h3>
+            </div>
+            }
         </div>
-        }
     </section>
     } @else if (categoryState.state().state === 'loading') {
-    <section>
-        <p>Cargando productos...</p>
+    <section class="loading-section">
+        <p class="loading-text">Cargando productos...</p>
     </section>
     } @else if (categoryState.state().state === 'error') {
-    <section>
-        <p>No se han encontrado productos o hubo un error al cargar.</p>
+    <section class="error-section">
+        <p class="error-text">No se han encontrado productos o hubo un error al cargar.</p>
     </section>
     }
 </main>

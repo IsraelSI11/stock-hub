@@ -1,12 +1,16 @@
 <main>
     <!-- Add Inventory Button -->
-    <button mat-flat-button color="primary" (click)="redirectToInventoryForm()">Añadir inventario</button>
-    
-    <!-- Inventory List Table -->
-    <section>
-        <h2>Inventories</h2>
-        <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)" class="mat-elevation-z8">
+    <div class="header-container">
+        <button mat-flat-button color="primary" (click)="redirectToInventoryForm()">
+            Añadir Inventario
+        </button>
+    </div>
 
+    <!-- Inventory List Table -->
+    <section class="inventory-table-container">
+        <h2>Inventarios</h2>
+        <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)" class="mat-elevation-z8 inventory-table">
+            
             <!-- Name Column -->
             <ng-container matColumnDef="name">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name">Nombre</th>
@@ -23,7 +27,7 @@
             <ng-container matColumnDef="categories">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by categories">Categorías</th>
                 <td mat-cell *matCellDef="let element">
-                    {{ element.categories }} 
+                    {{ element.categories }}
                     <button mat-button color="accent" (click)="details(element.id)">Detalles</button>
                 </td>
             </ng-container>

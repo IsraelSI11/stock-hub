@@ -1,13 +1,18 @@
-<form [formGroup]="inventoryForm" (ngSubmit)="onSubmit()">
+<main>
+    <div class="inventory-container">
+        <h1>Crear Inventario</h1>
+        <form [formGroup]="inventoryForm" (ngSubmit)="onSubmit()">
+            <mat-form-field>
+                <mat-label for="name">Nombre del inventario</mat-label>
+                <input matInput id="name" formControlName="name" required>
+            </mat-form-field>
+            @if(submitted && inventoryForm.invalid) {
+            @if(inventoryForm.get('name')!.hasError('required')) {
+            <p class="error">Es necesario que indiques un nombre para el inventario</p>
+            }
+            }
+            <button mat-flat-button type="submit">Crear inventario</button>
+        </form>
+    </div>
+</main>
 
-    <mat-form-field>
-        <mat-label for="name">Nombre del inventario</mat-label>
-        <input matInput id="name" formControlName="name" required>
-    </mat-form-field>
-    @if(submitted && inventoryForm.invalid) {
-    @if(inventoryForm.get('name')!.hasError('required')) {
-    <p class="error">Es necesario que indiques un nombre para el inventario</p>
-    }
-    }
-    <button mat-flat-button type="submit">Crear inventario</button>
-</form>

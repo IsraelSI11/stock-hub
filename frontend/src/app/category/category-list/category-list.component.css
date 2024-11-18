@@ -1,0 +1,70 @@
+main {
+    padding: 1.5rem;
+    min-height: 100vh;
+}
+
+/* Section styles */
+.category-section {
+    text-align: center;
+    margin: 0 auto;
+}
+
+.category-section h2 {
+    font-size: 1.75rem;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+/* Grid styles for category cards */
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    justify-items: center;
+}
+
+/* Category card styles */
+.category-card {
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    width: 100%;
+    max-width: 250px;
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.category-card h3 {
+    font-size: 1.25rem;
+    color: #333;
+    margin: 0;
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Loading section styles */
+.loading-section {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.loading-text {
+    font-size: 1.2rem;
+    color: #555;
+}
+
+/* Error section styles */
+.error-section {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.error-text {
+    font-size: 1.2rem;
+    color: #d32f2f;
+    font-weight: bold;
+}
