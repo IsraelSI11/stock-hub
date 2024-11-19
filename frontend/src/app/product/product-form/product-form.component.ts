@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ProductService } from '../../services/product/product.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -20,6 +20,7 @@ export class ProductFormComponent implements OnInit {
 
   
   private route = inject(ActivatedRoute);
+  private router = inject(Router);
 
   private formBuilder = inject(FormBuilder);
   categoryStateService = inject(CategoryStateService);
@@ -57,7 +58,9 @@ export class ProductFormComponent implements OnInit {
         price: parseFloat(this.productForm.value.price!),
         stock: parseFloat(this.productForm.value.stock!)
       }, this.inventoryId).subscribe({
-        next: () => console.log('Producto agregado'),
+        next: () => {
+          this.router.navigate(['/inventory', this.inventoryId]);
+        },
         error: (err) => console.log('Error al agregar product', err)
       });
     }

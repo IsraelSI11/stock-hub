@@ -24,7 +24,8 @@ export class InventoryListComponent implements OnInit, AfterViewInit {
   private router = inject(Router);
   inventoriesService = inject(InventoryService);
   dataSource = new MatTableDataSource<InventoryItemTable>([]);
-  displayedColumns: string[] = ['name', 'products', 'categories'];
+  displayedColumns = ['name', 'products', 'categories', 'actions'];
+
 
   ngOnInit(): void {
     this.inventoriesService.getInventoriesOfUser().subscribe({

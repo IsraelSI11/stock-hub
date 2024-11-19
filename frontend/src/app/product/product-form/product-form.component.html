@@ -1,6 +1,9 @@
 <main>
     <div class="product-container">
         <h1>Añadir producto</h1>
+        @if(categoryStateService.state().categories.length == 0){
+        <p class="error">No hay categorías disponibles. Por favor, añade una categoría antes de añadir un producto.</p>
+        }@else{
         <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
             <mat-form-field>
                 <mat-label for="code">Código del producto</mat-label>
@@ -94,6 +97,7 @@
                 <button mat-flat-button type="submit">Crear producto</button>
             </div>
         </form>
+        }
     </div>
 
 </main>
