@@ -9,11 +9,14 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { InventoryService } from '../../services/inventory/inventory.service';
 import { Inventory } from '../../shared/interfaces/inventory.interface';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatIcon } from '@angular/material/icon';
+import { ProductEditData, ProductEditFormDialogComponent } from '../../product/product-edit-form-dialog/product-edit-form-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-inventory-details',
   standalone: true,
-  imports: [MatButtonModule, MatTableModule, MatPaginatorModule, MatSortModule, MatProgressSpinnerModule],
+  imports: [MatButtonModule, MatTableModule, MatPaginatorModule, MatSortModule, MatProgressSpinnerModule, MatIcon],
   providers: [InventoryService],
   templateUrl: './inventory-details.component.html',
   styleUrl: './inventory-details.component.css'
@@ -23,7 +26,7 @@ export class InventoryDetailsComponent implements OnInit, AfterViewInit {
   private _liveAnnouncer = inject(LiveAnnouncer);
 
   inventoryId = '';
-  displayedColumns: string[] = ['code', 'name', 'category', 'stock', 'price'];
+  displayedColumns = ['code', 'name', 'category', 'stock', 'price', 'actions'];
   products: ProductItemTable[] = [];
   private router = inject(Router);
   private route = inject(ActivatedRoute);
@@ -31,6 +34,8 @@ export class InventoryDetailsComponent implements OnInit, AfterViewInit {
   inventoryService = inject(InventoryService);
   inventory: Inventory | null = null;
   dataSource = new MatTableDataSource<ProductItemTable>([]);
+
+  constructor(public dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -73,6 +78,25 @@ export class InventoryDetailsComponent implements OnInit, AfterViewInit {
   inventoryUsers(inventoryId: string) {
     this.router.navigate(['/inventory/user', inventoryId]);
   }
+
+  modifyProduct(product: ProductEditData): void {
+    const dialogRef = this.dialog.open(ProductEditFormDialogComponent, {
+      width: '400px',
+      data: { ...product }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log('Producto actualizado:', result);
+        // Lógica para actualizar el producto en la base de datos o estado
+      }
+    });
+  }
+
+  viewDetails(productId: string): void {
+
+  }
+
 
   announceSortChange(sortState: Sort) {
     console.log(sortState);

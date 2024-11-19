@@ -17,6 +17,7 @@
             <h4>Productos</h4>
             <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)"
                 class="mat-elevation-z8 inventory-table">
+                
                 <!-- Code Column -->
                 <ng-container matColumnDef="code">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by code">Código</th>
@@ -47,9 +48,24 @@
                     <td mat-cell *matCellDef="let element">{{element.price}}</td>
                 </ng-container>
 
+                <!-- Actions Column -->
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef>Acciones</th>
+                    <td mat-cell *matCellDef="let element">
+                        <button mat-icon-button color="primary" (click)="modifyProduct(element)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button mat-icon-button color="accent">
+                            <mat-icon>info</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+
+                <!-- Header and Row Definitions -->
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
         </div>
     </div>
 </main>
+
