@@ -41,6 +41,32 @@ export class ProductService {
     );
   }
 
+  updateProduct(inventoryId:string,product: Product): Observable<any> {
+    // Configuración para enviar cookies con la solicitud
+    const options = {
+      withCredentials: true,
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    return this.http.put(`${apiUrl}/product/${inventoryId}/${product.id}`, product, options).pipe(
+      tap(() => console.log('Producto actualizado'))
+    );
+  }
+
+  deleteProduct(productId: string): Observable<any> {
+    // Configuración para enviar cookies con la solicitud
+    const options = {
+      withCredentials: true,
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    return this.http.delete(`${apiUrl}/product/${productId}`, options).pipe(
+      tap(() => console.log('Producto eliminado'))
+    );
+  }
+
     
 
 }

@@ -12,6 +12,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIcon } from '@angular/material/icon';
 import { ProductEditData, ProductEditFormDialogComponent } from '../../product/product-edit-form-dialog/product-edit-form-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { ProductDeleteDialogComponent } from '../../product/product-delete-dialog/product-delete-dialog.component';
 
 @Component({
   selector: 'app-inventory-details',
@@ -35,7 +36,7 @@ export class InventoryDetailsComponent implements OnInit, AfterViewInit {
   inventory: Inventory | null = null;
   dataSource = new MatTableDataSource<ProductItemTable>([]);
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -43,6 +44,7 @@ export class InventoryDetailsComponent implements OnInit, AfterViewInit {
       this.inventoryService.getInventory(this.inventoryId).subscribe({
         next: (inventory) => {
           this.inventory = inventory;
+          console.log('Inventario:', inventory);
           this.dataSource = new MatTableDataSource(parseProducts(inventory.products));
         },
         error: (err) => console.log('Error al obtener inventario', err)
@@ -79,16 +81,31 @@ export class InventoryDetailsComponent implements OnInit, AfterViewInit {
     this.router.navigate(['/inventory/user', inventoryId]);
   }
 
-  modifyProduct(product: ProductEditData): void {
+  modifyProduct(product: any): void {
+    console.log(product)
     const dialogRef = this.dialog.open(ProductEditFormDialogComponent, {
       width: '400px',
-      data: { ...product }
+      data: { inventoryId: this.inventoryId, ...product }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         console.log('Producto actualizado:', result);
-        // Lógica para actualizar el producto en la base de datos o estado
+        window.location.reload();
+      }
+    });
+  }
+
+  deleteProduct(productId: string, code:string): void {
+    const dialogRef = this.dialog.open(ProductDeleteDialogComponent, {
+      width: '400px',
+      data: { productId: productId, code: code}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log('Producto eliminado:', result);
+        window.location.reload();
       }
     });
   }

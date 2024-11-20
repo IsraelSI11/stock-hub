@@ -4,8 +4,10 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { ProductService } from '../../services/product/product.service';
 
 export interface ProductEditData {
+  inventoryId: string;
   id: string;
   code: string;
   name: string;
@@ -25,6 +27,7 @@ export interface ProductEditData {
     MatDialogContent,
     MatDialogActions,
     MatDialogClose],
+  providers: [ProductService],
   templateUrl: './product-edit-form-dialog.component.html',
   styleUrls: ['./product-edit-form-dialog.component.css']
 })
@@ -32,6 +35,8 @@ export class ProductEditFormDialogComponent {
   readonly dialogRef = inject(MatDialogRef<ProductEditFormDialogComponent>);
   readonly data = inject<ProductEditData>(MAT_DIALOG_DATA);
   readonly form: FormGroup;
+
+  private productService = inject(ProductService);
 
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
@@ -49,7 +54,15 @@ export class ProductEditFormDialogComponent {
 
   onSave(): void {
     if (this.form.valid) {
-      this.dialogRef.close(this.form.value);
+      this.productService.updateProduct(this.data.inventoryId,{
+        id: this.data.id,
+        code: this.form.value.code,
+        name: this.form.value.name,
+        category: this.form.value.category,
+        imageUrl: '',
+        stock: this.form.value.stock,
+        price: this.form.value.price,
+      }).subscribe(() => this.dialogRef.close(this.form.value));
     }
   }
 }
