@@ -1,5 +1,6 @@
 package com.stocktracker.backend.controller;
 
+import com.stocktracker.backend.dto.CategoryDto;
 import com.stocktracker.backend.dto.InventoryDto;
 import com.stocktracker.backend.dto.ProductDto;
 import com.stocktracker.backend.model.Category;
@@ -61,6 +62,41 @@ public class ProductController {
                 response.put("message", "Error al registrar el producto");
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
             }
+        }catch(Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
+    @PutMapping("/{inventoryId}/{productId}")
+    @ResponseBody
+    public ResponseEntity<Map<String,String>> modifyProduct(@RequestBody PostProductRequest productRequest,
+            @PathVariable(value="inventoryId") UUID inventoryId
+            , @PathVariable(value="productId") UUID productId){
+        try{
+            Optional<Product> productOptional = productService.updateProduct(productId,inventoryId,new ProductDto(productId, productRequest.code(), productRequest.name(),
+                    productRequest.imageUrl(), new CategoryDto(productRequest.category()),
+                    productRequest.stock(), productRequest.price()));
+            Map<String, String> response = new HashMap<>();
+            if(productOptional.isPresent()){
+                response.put("message", "Producto modificado exitosamente");
+                return ResponseEntity.status(HttpStatus.CREATED).body(response);
+            }else{
+                response.put("message", "Error al modificar el producto");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+            }
+        }catch(Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
+    @DeleteMapping("/{productId}")
+    @ResponseBody
+    public ResponseEntity<Map<String,String>> deleteProduct(@PathVariable(value="productId") UUID productId){
+        try{
+            productService.deleteProduct(productId);
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Producto eliminado exitosamente");
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
         }catch(Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }

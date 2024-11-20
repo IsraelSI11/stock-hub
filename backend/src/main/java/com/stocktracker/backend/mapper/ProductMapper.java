@@ -13,7 +13,7 @@ public class ProductMapper {
     public static ProductDto ProductToDto(Product product) {
         CategoryDto categoryDto = CategoryMapper.CategoryToDto(product.getCategory());
 
-        return new ProductDto(product.getCode(), product.getName(), product.getImageUrl(),
+        return new ProductDto(product.getId(),product.getCode(), product.getName(), product.getImageUrl(),
                                     categoryDto, product.getStock(), product.getPrice());
     }
 

@@ -1,6 +1,7 @@
 package com.stocktracker.backend.service;
 
 import com.stocktracker.backend.dto.ProductDto;
+import com.stocktracker.backend.mapper.CategoryMapper;
 import com.stocktracker.backend.mapper.ProductMapper;
 import com.stocktracker.backend.model.Category;
 import com.stocktracker.backend.model.Inventory;
@@ -59,15 +60,16 @@ public class ProductService {
         productRepository.deleteById(id);
     }
 
-    public Optional<Product> updateProduct(UUID id, Product product) {
-        Optional<Product> oldProduct = productRepository.findById(id);
-        if (oldProduct.isPresent()) {
+    public Optional<Product> updateProduct(UUID productId, UUID inventoryId, ProductDto product) {
+        Optional<Product> oldProduct = productRepository.findById(productId);
+        Optional<Category> optionalCategory = categoryRepository.findByNameAndInventoryId(product.getCategory().getName(), inventoryId);
+        if (oldProduct.isPresent() && optionalCategory.isPresent()) {
             Product oldProductObj = oldProduct.get();
             oldProductObj.setName(product.getName());
             oldProductObj.setCode(product.getCode());
             oldProductObj.setStock(product.getStock());
             oldProductObj.setPrice(product.getPrice());
-            oldProductObj.setCategory(product.getCategory());
+            oldProductObj.setCategory(optionalCategory.get());
             return Optional.of(productRepository.save(oldProductObj));
         }
         return Optional.empty();
