@@ -7,11 +7,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
 import { UserPermissionsData, UserPermissionsDialogComponent } from '../user-permissions-dialog/user-permissions-dialog.component';
 import { UserDeleteData, UserDeleteDialogComponent } from '../user-delete-dialog/user-delete-dialog.component';
+import { MatButton } from '@angular/material/button';
 
 @Component({
   selector: 'app-inventory-users',
   standalone: true,
-  imports: [MatIcon],
+  imports: [MatIcon, MatButton],
   providers: [InventoryService],
   templateUrl: './inventory-users.component.html',
   styleUrl: './inventory-users.component.css'

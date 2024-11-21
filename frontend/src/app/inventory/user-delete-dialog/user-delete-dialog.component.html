@@ -3,6 +3,6 @@
   <p>¿Estás seguro de que quieres eliminar al usuario <strong>{{data.user.email}}</strong>?</p>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button (click)="cancelDelete()">Cancelar</button>
-  <button mat-button color="warn" (click)="confirmDelete()" cdkFocusInitial>Eliminar</button>
+  <button mat-flat-button (click)="cancelDelete()">Cancelar</button>
+  <button mat-flat-button color="warn" (click)="confirmDelete()" cdkFocusInitial>Eliminar</button>
 </mat-dialog-actions>

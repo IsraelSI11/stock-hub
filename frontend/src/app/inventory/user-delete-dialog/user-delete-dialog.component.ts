@@ -3,9 +3,10 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatDialogTitle, MatDialogContent, MatDia
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { UserInventoryService } from '../../services/userinventory/user-inventory.service';
 import { User } from '../../shared/interfaces/user.interface';
+import { MatButton } from '@angular/material/button';
 
 export interface UserDeleteData {
-  user:User;
+  user: User;
   inventoryId: string;
 }
 
@@ -15,7 +16,8 @@ export interface UserDeleteData {
   imports: [MatDialogTitle,
     MatDialogContent,
     MatDialogActions,
-    MatFormFieldModule],
+    MatFormFieldModule,
+    MatButton],
   providers: [UserInventoryService],
   templateUrl: './user-delete-dialog.component.html',
   styleUrls: ['./user-delete-dialog.component.css'],
@@ -27,7 +29,7 @@ export class UserDeleteDialogComponent {
   private userInventoryService = inject(UserInventoryService);
 
   confirmDelete(): void {
-    this.userInventoryService.deleteUserFromInventory(this.data.user.id,this.data.inventoryId).subscribe({
+    this.userInventoryService.deleteUserFromInventory(this.data.user.id, this.data.inventoryId).subscribe({
       next: () => {
         this.dialogRef.close(true); // Confirma la eliminación
       },

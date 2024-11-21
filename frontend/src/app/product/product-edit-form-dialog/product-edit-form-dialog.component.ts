@@ -3,7 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatDialogTitle, MatDialogContent, MatDia
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
+import { MatButton, MatButtonModule } from '@angular/material/button';
 import { ProductService } from '../../services/product/product.service';
 
 export interface ProductEditData {
@@ -26,7 +26,7 @@ export interface ProductEditData {
     MatDialogTitle,
     MatDialogContent,
     MatDialogActions,
-    MatDialogClose],
+    MatButton],
   providers: [ProductService],
   templateUrl: './product-edit-form-dialog.component.html',
   styleUrls: ['./product-edit-form-dialog.component.css']

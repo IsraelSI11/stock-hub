@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose } from '@angular/material/dialog';
 import { ProductService } from '../../services/product/product.service';
+import { MatButton } from '@angular/material/button';
 
 export interface ProductDeleteData {
   productId: string;
@@ -13,7 +14,7 @@ export interface ProductDeleteData {
   imports: [MatDialogTitle,
     MatDialogContent,
     MatDialogActions,
-    MatDialogClose],
+    MatButton],
   providers: [ProductService],
   templateUrl: './product-delete-dialog.component.html',
   styleUrls: ['./product-delete-dialog.component.css'],

@@ -56,3 +56,12 @@ h1 {
     font-style: italic;
 }
 
+.user-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+}
+
+.user-actions *{
+    margin: 0;
+}

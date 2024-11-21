@@ -5,6 +5,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { RoleName } from '../../shared/enum/roleName';
 import { User } from '../../shared/interfaces/user.interface';
 import { UserInventoryService } from '../../services/userinventory/user-inventory.service';
+import { MatButton } from '@angular/material/button';
 
 export interface UserPermissionsData {
   user: User;
@@ -19,7 +20,8 @@ export interface UserPermissionsData {
     MatDialogContent,
     MatDialogActions,
     MatFormFieldModule,
-    MatSelectModule],
+    MatSelectModule,
+    MatButton],
   templateUrl: './user-permissions-dialog.component.html',
   styleUrls: ['./user-permissions-dialog.component.css'],
 })
