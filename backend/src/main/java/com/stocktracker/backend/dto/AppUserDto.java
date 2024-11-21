@@ -10,11 +10,14 @@ import lombok.NoArgsConstructor;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 public class AppUserDto {
+
+    private UUID id;
 
     private String username;
 
