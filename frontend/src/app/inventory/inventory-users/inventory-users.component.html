@@ -1,13 +1,22 @@
 <main>
     <h1>Usuarios</h1>
     <div class="users-grid">
-        @for (userInventoryRole of inventoryUsers(); track userInventoryRole.id) {
+      @for (userInventoryRole of inventoryUsers(); track userInventoryRole.id) {
         <div class="user-card">
-            <div class="user-info">
-                <p class="user-email">{{userInventoryRole.user.email}}</p>
-                <p class="user-role">{{userInventoryRole.roleName}}</p>
-            </div>
+          <div class="user-info">
+            <p class="user-email">{{userInventoryRole.user.email}}</p>
+            <p class="user-role">{{userInventoryRole.roleName}}</p>
+          </div>
+          <div class="user-actions">
+            <button mat-icon-button color="primary" (click)="changePermissions(userInventoryRole)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="deleteUser(userInventoryRole)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
         </div>
-        }
+      }
     </div>
-</main>
+  </main>
+  

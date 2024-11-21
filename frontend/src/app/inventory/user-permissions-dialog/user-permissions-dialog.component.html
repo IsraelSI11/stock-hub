@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>Cambiar Permisos</h2>
+<mat-dialog-content>
+  <p>Modificando permisos para: <strong>{{data.user.email}}</strong></p>
+  <mat-form-field>
+    <mat-label>Nuevo Rol</mat-label>
+    <mat-select [(value)]="newRole">
+      <mat-option value="ADMIN">Admin</mat-option>
+      <mat-option value="MODERATOR">Moderador</mat-option>
+      <mat-option value="USER">Usuario</mat-option>
+    </mat-select>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="cancel()">Cancelar</button>
+  <button mat-button color="primary" (click)="savePermissions()" cdkFocusInitial>Guardar</button>
+</mat-dialog-actions>
