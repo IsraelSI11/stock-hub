@@ -56,6 +56,21 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
+    @PostMapping("/logout")
+    public ResponseEntity<Void> logout(HttpServletRequest request) {
+        // Invalidar la autenticación y el SecurityContext
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        Authentication authentication = securityContext.getAuthentication();
+
+        if (authentication != null) {
+            // Limpiar la autenticación en el SecurityContext
+            SecurityContextHolder.clearContext();
+        }
+
+        // Devolver una respuesta vacía indicando que el logout fue exitoso
+        return ResponseEntity.ok().build();
+    }
+
     @PostMapping("/register")
     public ResponseEntity<Map<String, String>> registerUser(@RequestBody RegisterRequest registerRequest) {
         // Verifica si el usuario ya existe

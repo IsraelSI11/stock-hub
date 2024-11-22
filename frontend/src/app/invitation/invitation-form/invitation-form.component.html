@@ -14,9 +14,13 @@
             <p class="error">El to debe tener formato to</p>
             }
             }
+
             <mat-form-field>
                 <mat-label for="role">Rol</mat-label>
-                <input matInput id="role" formControlName="role" required>
+                <mat-select id="role" formControlName="role">
+                    <mat-option value="MODERATOR">Moderador</mat-option>
+                    <mat-option value="USER">Usuario</mat-option>
+                </mat-select>
             </mat-form-field>
             @if(submitted && invitationForm.get('role')!.invalid) {
             @if(invitationForm.get('role')!.hasError('required')) {

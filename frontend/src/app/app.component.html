@@ -1,33 +1,32 @@
 <nav>
-  <img src="/logo.svg" alt="logo" />
   <ul>
     <li>
-      <a routerLink="/">
-        <div>
-          <img src="/home.svg" alt="home" />
-          <span>Home</span>
-        </div>
-      </a>
+      <img src="/logo.svg" alt="logo" />
     </li>
-    <li>
-      <a routerLink="/">
-        <div>
-          <img src="/about-us.svg" alt="home" />
-          <span>About us</span>
-        </div>
-      </a>
-    </li>
-    <li>
-      <a routerLink="/contact">
-        <div>
-          <img src="/contact-us.svg" alt="home" />
-          <span>Contact us</span>
-        </div>
-      </a>
-    </li>
-    <li><a routerLink="/login" routerLinkActive="active" ariaCurrentWhenActive="page">Login</a></li>
-    <li><a routerLink="/inventory" routerLinkActive="active" ariaCurrentWhenActive="page">Ivneotry</a></li>
+
+    <div class="right-nav">
+      @if(!isAuthenticated){
+      <li>
+        <a class="button-link" routerLink="/login" routerLinkActive="active" ariaCurrentWhenActive="page"><button
+            mat-flat-button>Login</button></a>
+      </li>
+      }@else {
+      <li>
+        <a class="link" routerLink="/invitation" routerLinkActive="active" ariaCurrentWhenActive="page">Invitaciones</a>
+      </li>
+      <li>
+        <a class="link" routerLink="/inventory" routerLinkActive="active" ariaCurrentWhenActive="page">Inventory</a>
+      </li>
+      <li>
+        <a class="button-link" href="javascript:void(0);" (click)="onLogout()"><button mat-flat-button
+            color="warn">Logout</button></a>
+      </li>
+      }
+    </div>
+
+
   </ul>
 </nav>
+
 
 <router-outlet></router-outlet>

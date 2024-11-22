@@ -1,8 +1,8 @@
 <main>
     @if(invitationState.state().state === 'success'){
     <section>
-        <h2>Invitaciones</h2>
         <div class="invitation-container">
+            <h1>Invitaciones</h1>
             @for (invitation of invitationState.state().invitations; track invitation.id) {
             <mat-card appearance="outlined">
                 <mat-card-content class="invitation-content">
@@ -18,6 +18,9 @@
                     </div>
                 </mat-card-content>
             </mat-card>
+            }
+            @if(invitationState.state().invitations.length === 0) {
+            <p>No hay invitaciones pendientes.</p>
             }
         </div>
 

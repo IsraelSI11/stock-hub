@@ -81,6 +81,10 @@ export class InventoryDetailsComponent implements OnInit, AfterViewInit {
     this.router.navigate(['/inventory/user', inventoryId]);
   }
 
+  sendInvitation(inventoryId: string) {
+    this.router.navigate(['/invitation/send', inventoryId]);
+  }
+
   modifyProduct(product: any): void {
     console.log(product)
     const dialogRef = this.dialog.open(ProductEditFormDialogComponent, {
@@ -97,6 +101,7 @@ export class InventoryDetailsComponent implements OnInit, AfterViewInit {
   }
 
   deleteProduct(productId: string, code:string): void {
+    
     const dialogRef = this.dialog.open(ProductDeleteDialogComponent, {
       width: '400px',
       data: { productId: productId, code: code}

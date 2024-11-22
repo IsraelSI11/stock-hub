@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { apiUrl } from '../../shared/constants/apiUrl';
 
@@ -8,28 +8,29 @@ import { apiUrl } from '../../shared/constants/apiUrl';
   providedIn: 'root'
 })
 export class AuthService {
+  private isAuthenticatedSubject = new BehaviorSubject<boolean>(false); // Estado inicial
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   login(email: string, password: string): Observable<any> {
     const credentials = { email, password };
-    
-    // Configuración para enviar cookies con la solicitud
     const options = {
       withCredentials: true,
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     };
-    
     return this.http.post(`${apiUrl}/user/login`, credentials, options).pipe(
-      tap(() => console.log('Usuario autenticado'))
+      tap(() => {
+        this.isAuthenticatedSubject.next(true); // Cambiar el estado a autenticado
+        console.log('Usuario autenticado');
+      })
     );
   }
 
-  register(userName: string, email:string, password:string): Observable<any> {
+  register(userName: string, email: string, password: string): Observable<any> {
     const credentials = { userName, email, password };
-    
+
     // Configuración para enviar cookies con la solicitud
     const options = {
       withCredentials: true,
@@ -37,8 +38,8 @@ export class AuthService {
         'Content-Type': 'application/json'
       })
     };
-    
-    return this.http.post(`${apiUrl}/user/register`, credentials, options).pipe(
+
+    return this.http.post(`${ apiUrl }/user/register`, credentials, options).pipe(
       tap(() => console.log('Usuario registrado'))
     );
   }
@@ -46,12 +47,21 @@ export class AuthService {
   logout(): Observable<any> {
     const options = { withCredentials: true };
     return this.http.post(`${apiUrl}/user/logout`, {}, options).pipe(
-      tap(() => console.log('Usuario desautenticado'))
+      tap(() => {
+        this.isAuthenticatedSubject.next(false); // Cambiar el estado a no autenticado
+        console.log('Usuario desautenticado');
+      })
     );
   }
 
   isAuthenticated(): Observable<boolean> {
-    // Llamando a la API para verificar si la sesión está activa
-    return this.http.get<boolean>(`${apiUrl}/check-session`, { withCredentials: true });
+    return this.isAuthenticatedSubject.asObservable(); // Observable del estado
+  }
+
+  checkSession(): void {
+    this.http.get<boolean>(`${apiUrl}/check-session`, { withCredentials: true }).subscribe(
+      (isAuth) => this.isAuthenticatedSubject.next(isAuth), // Actualizar el estado
+      () => this.isAuthenticatedSubject.next(false) // Si hay error, no autenticado
+    );
   }
 }

@@ -28,6 +28,6 @@ public interface UserInventoryRoleRepository extends JpaRepository<UserInventory
     @Query("DELETE FROM UserInventoryRole uir WHERE uir.user.id = :userId AND uir.inventory.id = :inventoryId")
     void deleteByInventoryIdAndUserId(UUID inventoryId, UUID userId);
 
-
-    List<UserInventoryRole> findByInventoryId(UUID inventoryId);
+    @Query("SELECT uir FROM UserInventoryRole uir WHERE uir.inventory.id = :inventoryId AND uir.user.email <> :email")
+    List<UserInventoryRole> findByInventoryId(@Param("inventoryId") UUID inventoryId, @Param("email") String email);
 }

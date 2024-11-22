@@ -22,8 +22,8 @@ public class UserInventoryRoleService {
         this.userInventoryRoleRepository = userInventoryRoleRepository;
     }
 
-    public List<UserInventoryRoleDto> getUsersfInventory(UUID inventoryId){
-        return UserInventoryRoleMapper.userInventoryRolesToDtos(userInventoryRoleRepository.findByInventoryId(inventoryId));
+    public List<UserInventoryRoleDto> getUsersOfInventory(UUID inventoryId, String email){
+        return UserInventoryRoleMapper.userInventoryRolesToDtos(userInventoryRoleRepository.findByInventoryId(inventoryId, email));
     }
 
     public Optional<UserInventoryRoleDto> updatePermissionsOfUser(UUID inventoryId, UUID userId, RoleName roleName){

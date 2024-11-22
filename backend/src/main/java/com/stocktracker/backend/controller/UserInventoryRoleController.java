@@ -4,9 +4,11 @@ import com.stocktracker.backend.dto.InventoryDto;
 import com.stocktracker.backend.dto.UserInventoryRoleDto;
 import com.stocktracker.backend.enums.RoleName;
 import com.stocktracker.backend.service.UserInventoryRoleService;
+import com.stocktracker.backend.utils.AuthUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,7 +29,8 @@ public class UserInventoryRoleController {
     @ResponseBody
     public ResponseEntity<List<UserInventoryRoleDto>> getUsersOfInventory(@PathVariable(value="inventoryId") UUID inventoryId){
         try{
-            List<UserInventoryRoleDto> userInventoryRoleDtos = userInventoryRoleService.getUsersfInventory(inventoryId);
+            String email = AuthUtils.getEmailOfAuthenticatedUser(SecurityContextHolder.getContext());
+            List<UserInventoryRoleDto> userInventoryRoleDtos = userInventoryRoleService.getUsersOfInventory(inventoryId, email);
             return ResponseEntity.ok(userInventoryRoleDtos);
         }catch(Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(List.of());
