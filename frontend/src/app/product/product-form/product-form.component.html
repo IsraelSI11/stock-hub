@@ -49,23 +49,6 @@
             <p class="error">La categoría es obligatoria</p>
             }
             }
-
-
-            <mat-form-field>
-                <mat-label for="imageUrl">Imagen del producto</mat-label>
-                <input matInput id="imageUrl" formControlName="imageUrl" required>
-            </mat-form-field>
-            @if(submitted && productForm.get('imageUrl')!.invalid) {
-            @if(productForm.get('imageUrl')!.hasError('required')) {
-            <p class="error">La URL de la imagen es obligatoria</p>
-            }
-            @else if(productForm.get('imageUrl')!.hasError('minlength')) {
-            <p class="error">La URL de la imagen debe tener al menos 8 caracteres</p>
-            }
-            @else if(productForm.get('imageUrl')!.hasError('maxlength')) {
-            <p class="error">La URL de la imagen no puede tener más de 255 caracteres</p>
-            }
-            }
             <mat-form-field>
                 <mat-label for="price">Precio</mat-label>
                 <input matInput id="price" formControlName="price" type="number" required>

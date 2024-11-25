@@ -42,7 +42,7 @@ export class ProductFormComponent implements OnInit {
     code: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(8)]],
     name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
     category:['', [Validators.required]],
-    imageUrl: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(255)]],
+    imageUrl: ['asdasdsaasd', [Validators.required, Validators.minLength(8), Validators.maxLength(255)]],
     price: ['',[ Validators.required, Validators.min(0.01), Validators.max(999999.99)]],
     stock: ['', [Validators.required, Validators.min(0)]],
   });

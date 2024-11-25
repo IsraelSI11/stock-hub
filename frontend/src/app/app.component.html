@@ -8,18 +8,18 @@
       @if(!isAuthenticated){
       <li>
         <a class="button-link" routerLink="/login" routerLinkActive="active" ariaCurrentWhenActive="page"><button
-            mat-flat-button>Login</button></a>
+            mat-flat-button>Iniciar sesión</button></a>
       </li>
       }@else {
       <li>
         <a class="link" routerLink="/invitation" routerLinkActive="active" ariaCurrentWhenActive="page">Invitaciones</a>
       </li>
       <li>
-        <a class="link" routerLink="/inventory" routerLinkActive="active" ariaCurrentWhenActive="page">Inventory</a>
+        <a class="link" routerLink="/inventory" routerLinkActive="active" ariaCurrentWhenActive="page">Inventario</a>
       </li>
       <li>
         <a class="button-link" href="javascript:void(0);" (click)="onLogout()"><button mat-flat-button
-            color="warn">Logout</button></a>
+            color="warn">Cerrar sesión</button></a>
       </li>
       }
     </div>
