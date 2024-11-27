@@ -17,17 +17,15 @@ Launch web client
 Launch backend
 
 The same process as starting a Springboot application.
-    
-## Environment Variables
-
-In the `application.properties` file, make sure the PostgreSQL database configuration is correct. Also, ensure that the frontend URL is properly set.
-
 
 ## Demo
 
 
 https://github.com/user-attachments/assets/ca8ad0df-fc82-453a-b0b0-20b199e70083
+    
+## Environment Variables
 
+In the `application.properties` file, make sure the PostgreSQL database configuration is correct. Also, ensure that the frontend URL is properly set.
 
 
 ## Authors
